@@ -15,7 +15,7 @@
     "heroku-postbuild": "yarn install-client && yarn build",
     "start": "node build/server.js",
     "client": "cd client && yarn start",
-    "dev": "concurrently -n 'server,client' -c 'red,green' 'nodemon build/server.js' 'yarn client'"
+    "dev": "concurrently -n 'server,client,build' -c 'red,green,blue' 'nodemon build/server.js' 'yarn client' 'tsc -w'"
   },
   "dependencies": {
     "@types/express": "^4.17.7",
