@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
@@ -11,9 +12,19 @@ const Home: React.FC = () => {
 
   const [groceries, setGroceries] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLElement>): void => {
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLElement>
+  ): Promise<void> => {
+    // Prevent page refresh
     event.preventDefault();
+
     console.log(`Form submitted with value: '${groceries}'`);
+
+    // Make post request
+    const url = '/api';
+    const response = await axios.post(url);
+    const { data } = response;
+    console.log(`Response message: ${data.message}`);
   };
 
   return (
