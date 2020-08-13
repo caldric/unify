@@ -21,10 +21,14 @@ const Home: React.FC = () => {
     console.log(`Form submitted with value: '${groceries}'`);
 
     // Make post request
-    const url = '/api';
-    const response = await axios.post(url);
+    const response = await axios({
+      method: 'post',
+      url: '/api',
+      headers: { 'Content-Type': 'application/json' },
+      data: JSON.stringify({ input: groceries }),
+    });
     const { data } = response;
-    console.log(`Response message: ${data.message}`);
+    console.log(data);
   };
 
   return (

@@ -10,6 +10,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
+// Middleware
+app.use(express.json());
+
 // Routes
 app.use('/api', apiRouter);
 app.get('/*', (_, res) => {
