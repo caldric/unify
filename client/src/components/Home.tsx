@@ -11,10 +11,15 @@ const Home: React.FC = () => {
 
   const [groceries, setGroceries] = useState('');
 
+  const handleSubmit = (event: React.FormEvent<HTMLElement>): void => {
+    event.preventDefault();
+    console.log(`Form submitted with value: '${groceries}'`);
+  };
+
   return (
     <div className="container" style={styles.topComponent}>
       <h2>Groceries</h2>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="grocery-list">
           <Form.Control
             as="textarea"
