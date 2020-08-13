@@ -1,13 +1,16 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './components/Home';
+import NavComponent from './components/NavComponent';
 
 const App: React.FC = () => {
   return (
     <div>
+      <NavComponent />
       <Switch>
         <Route exact path="/">
-          <h2>This is the index route.</h2>
+          <Home />
         </Route>
         <Route path="/test">
           <h2>This is the test route.</h2>
