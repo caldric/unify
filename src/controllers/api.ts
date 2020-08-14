@@ -37,6 +37,13 @@ const combineGroceries = (groceries: string): string[] => {
   // Convert all items to lowercase
   groceryList = groceryList.map((item) => item.toLowerCase());
 
+  // Remove characters after comma
+  groceryList = groceryList.map((item) => {
+    const commaIndex = item.indexOf(',');
+    const filteredItem = item.slice(0, commaIndex);
+    return filteredItem;
+  });
+
   return groceryList;
 };
 
