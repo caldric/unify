@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 
 interface Props {
@@ -15,12 +16,6 @@ interface ResponseData {
 }
 
 const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
-  const styles = {
-    topComponent: {
-      marginTop: '40px',
-    },
-  };
-
   const [groceryInput, setGroceryInput] = useState('');
 
   const handleSubmit = async (
@@ -46,23 +41,25 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
   };
 
   return (
-    <Container style={styles.topComponent}>
-      <h2>Input</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="grocery-list">
-          <Form.Control
-            as="textarea"
-            rows={10}
-            placeholder="Enter or paste your grocery list items here"
-            value={groceryInput}
-            onChange={(event) => setGroceryInput(event.currentTarget.value)}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </Container>
+    <Row className="grocery-input">
+      <Col>
+        <h2>Input</h2>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="grocery-list">
+            <Form.Control
+              as="textarea"
+              rows={10}
+              placeholder="Enter or paste your grocery list items here"
+              value={groceryInput}
+              onChange={(event) => setGroceryInput(event.currentTarget.value)}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </Col>
+    </Row>
   );
 };
 
