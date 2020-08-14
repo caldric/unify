@@ -9,6 +9,7 @@ interface Unit {
 interface GroceryOutput {
   input: string;
   quantity?: number;
+  unit?: string;
 }
 
 // Config
@@ -53,6 +54,23 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
   groceryList.forEach(
     (item) => (item.quantity = Number(item.input.match(qtyRegex)))
   );
+
+  // Extract units
+  groceryList.forEach((item) => {
+    for (const unit of units) {
+      let exitEarly = false;
+
+      for (const unitVariant of unit.variants) {
+        if (item.input.includes(unitVariant)) {
+          item.unit = unit.name;
+          exitEarly = true;
+          break;
+        }
+      }
+
+      if (exitEarly) break;
+    }
+  });
 
   return groceryList;
 };
