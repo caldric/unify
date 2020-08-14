@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ListGroup from 'react-bootstrap/ListGroup';
 import GroceryInput from './GroceryInput';
+import GroceryOutput from './GroceryOutput';
 
 const Home: React.FC = () => {
   const [groceryOutput, setGroceryOutput] = useState<string[]>([]);
@@ -9,12 +9,7 @@ const Home: React.FC = () => {
     <div>
       <h1>Groceries</h1>
       <GroceryInput setGroceryOutput={setGroceryOutput} />
-      <h2>Output</h2>
-      <ListGroup variant="flush">
-        {groceryOutput.map((item) => (
-          <ListGroup.Item>{item}</ListGroup.Item>
-        ))}
-      </ListGroup>
+      <GroceryOutput groceryOutput={groceryOutput} />
     </div>
   );
 };
