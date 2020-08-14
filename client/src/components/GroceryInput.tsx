@@ -5,8 +5,10 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 
+import { IGroceryOutput } from './Home';
+
 interface Props {
-  setGroceryOutput: React.Dispatch<React.SetStateAction<string[]>>;
+  setGroceryOutput: React.Dispatch<React.SetStateAction<IGroceryOutput[]>>;
 }
 
 interface ResponseData {
@@ -37,7 +39,7 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
     console.log(data);
 
     // Assign output data to state
-    setGroceryOutput(data.output);
+    // setGroceryOutput(data.output);
   };
 
   return (

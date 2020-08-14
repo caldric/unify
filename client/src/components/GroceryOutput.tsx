@@ -2,8 +2,11 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 
+import { IGroceryOutput } from './Home';
+
 interface Props {
-  groceryOutput: string[];
+  groceryOutput: IGroceryOutput[];
+  // groceryOutput: string[];
 }
 
 const GroceryOutput: React.FC<Props> = ({ groceryOutput }) => {

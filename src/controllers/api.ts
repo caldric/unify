@@ -1,13 +1,18 @@
 import express from 'express';
 
-// Config
-const apiRouter = express.Router();
-
 interface Unit {
   name: string;
   type: 'volume' | 'weight';
   variants: string[];
 }
+
+interface GroceryOutput {
+  input?: string;
+  quantity?: number;
+}
+
+// Config
+const apiRouter = express.Router();
 
 const units: Unit[] = [
   {
@@ -23,26 +28,38 @@ const units: Unit[] = [
 ];
 
 // Main app logic function
-const combineGroceries = (groceries: string): string[] => {
+const combineGroceries = (groceries: string): any => {
   // Initialize grocery list
-  let groceryList: string[] = [];
+  // let groceryList: GroceryList[] = [];
+  let groceryList: any = [];
 
   // Store each item as an element in an array
-  groceryList = groceries.split('\n');
-
-  // Remove extra whitespace
-  // They should now just be ''
-  groceryList = groceryList.filter((item) => item !== '');
-
-  // Convert all items to lowercase
-  groceryList = groceryList.map((item) => item.toLowerCase());
-
-  // Remove characters after comma
-  groceryList = groceryList.map((item) => {
-    const commaIndex = item.indexOf(',');
-    const filteredItem = item.slice(0, commaIndex);
-    return filteredItem;
+  groceryList = groceries.split('\n').map((item) => {
+    return { input: item };
   });
+
+  // // Remove extra whitespace
+  // // They should now just be ''
+  // groceryList = groceryList.filter((item) => item.input !== '');
+
+  // // Convert all items to lowercase
+  // groceryList = groceryList.map((item) => item.input?.toLowerCase());
+
+  // // Remove characters after comma
+  // groceryList = groceryList.map((item) => {
+  //   const commaIndex = item.indexOf(',');
+  //   const filteredItem = item.slice(0, commaIndex);
+  //   return filteredItem;
+  // });
+
+  // // Extract quantity
+  // const qtyRegex = /\d/;
+  // groceryList = groceryList.map((item) => {
+  //   return {
+  //     quantity: Number(item.match(qtyRegex)),
+  //     input: item,
+  //   };
+  // });
 
   return groceryList;
 };
