@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
@@ -14,6 +15,12 @@ interface ResponseData {
 }
 
 const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
+  const styles = {
+    topComponent: {
+      marginTop: '40px',
+    },
+  };
+
   const [groceryInput, setGroceryInput] = useState('');
 
   const handleSubmit = async (
@@ -39,7 +46,7 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
   };
 
   return (
-    <>
+    <Container style={styles.topComponent}>
       <h2>Input</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="grocery-list">
@@ -55,7 +62,7 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
           Submit
         </Button>
       </Form>
-    </>
+    </Container>
   );
 };
 
