@@ -10,6 +10,7 @@ interface GroceryOutput {
   input: string;
   quantity?: number;
   unit?: string;
+  name?: string;
 }
 
 // Config
@@ -55,14 +56,25 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
     (item) => (item.quantity = Number(item.input.match(qtyRegex)))
   );
 
-  // Extract units
+  // Extract units and item
   groceryList.forEach((item) => {
     for (const unit of units) {
       let exitEarly = false;
 
       for (const unitVariant of unit.variants) {
         if (item.input.includes(unitVariant)) {
+          // Extract unit
           item.unit = unit.name;
+
+          // Extract item
+          const unitVariantIndex = item.input.indexOf(unitVariant);
+          // This is making the assumption that there's always a space
+          // between the unit and the item name
+          item.name = item.input.slice(
+            unitVariantIndex + unitVariant.length + 2
+          );
+
+          // Exit loops
           exitEarly = true;
           break;
         }
