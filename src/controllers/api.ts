@@ -7,7 +7,7 @@ interface Unit {
 }
 
 interface GroceryOutput {
-  input: string;
+  input?: string;
   quantity?: number;
   unit?: string;
   name?: string;
@@ -20,12 +20,12 @@ const units: Unit[] = [
   {
     name: 'tablespoon',
     type: 'volume',
-    variants: ['tbsp', 'tbsp', 'tablespoon', 'tablespoons'],
+    variants: ['tbsps', 'tbsp', 'tablespoons', 'tablespoon'],
   },
   {
     name: 'pound',
     type: 'weight',
-    variants: ['pound', 'pounds', 'lb', 'lbs'],
+    variants: ['pounds', 'pound', 'lbs', 'lb'],
   },
 ];
 
@@ -41,19 +41,24 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
   groceryList = groceryList.filter((item) => item.input !== '');
 
   // Convert all items to lowercase
-  groceryList.forEach((item) => (item.input = item.input.toLowerCase()));
+  groceryList.forEach(
+    (item) => (item.input = item.input ? item.input.toLowerCase() : '')
+  );
 
   // Remove characters after comma
   groceryList.forEach((item) => {
-    const commaIndex = item.input.indexOf(',');
-    const filteredItem = item.input.slice(0, commaIndex);
-    item.input = filteredItem;
+    if (item.input) {
+      const commaIndex = item.input.indexOf(',');
+      const filteredItem = item.input.slice(0, commaIndex);
+      item.input = filteredItem;
+    }
   });
 
   // Extract quantity
   const qtyRegex = /\d/;
   groceryList.forEach(
-    (item) => (item.quantity = Number(item.input.match(qtyRegex)))
+    (item) =>
+      (item.quantity = item.input ? Number(item.input.match(qtyRegex)) : 0)
   );
 
   // Extract units and item
@@ -62,7 +67,7 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
       let exitEarly = false;
 
       for (const unitVariant of unit.variants) {
-        if (item.input.includes(unitVariant)) {
+        if (item.input && item.input.includes(unitVariant)) {
           // Extract unit
           item.unit = unit.name;
 
@@ -71,7 +76,7 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
           // This is making the assumption that there's always a space
           // between the unit and the item name
           item.name = item.input.slice(
-            unitVariantIndex + unitVariant.length + 2
+            unitVariantIndex + unitVariant.length + 1
           );
 
           // Exit loops
@@ -84,7 +89,38 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
     }
   });
 
-  return groceryList;
+  // Combine similar items
+  const combinedGroceryList: GroceryOutput[] = [];
+  const combinedItemNames: string[] = [];
+
+  groceryList.forEach((item) => {
+    // Check if item is already present in the grocery list inputs
+    if (item.name && !combinedItemNames.includes(item.name)) {
+      // Case: item is not yet present
+      // console.log(`${item.name} is not yet present`);
+      combinedItemNames.push(item.name);
+
+      // Store the new item in combinedGroceryList
+      const { quantity, unit, name } = item;
+      combinedGroceryList.push({ quantity, unit, name });
+      // console.log('Combined grocery list: ', combinedGroceryList);
+    } else {
+      // Case: item is already present
+      // console.log(`${item.name} is already present`);
+
+      // Search for the index of the matching item in combined list
+      const matchingItemIndex = combinedGroceryList.findIndex(
+        (matchingItem) => matchingItem.name === item.name
+      );
+
+      // Increment the quantity of the item
+      const { quantity } = item;
+      const matchingItem = combinedGroceryList[matchingItemIndex];
+      if (matchingItem.quantity && quantity) matchingItem.quantity += quantity;
+    }
+  });
+
+  return combinedGroceryList;
 };
 
 // Routes
