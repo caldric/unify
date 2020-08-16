@@ -75,7 +75,7 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
   });
 
   // Combine similar items
-  const combinedGroceryList: GroceryOutput[] = [];
+  let combinedGroceryList: GroceryOutput[] = [];
   const combinedItemNames: string[] = [];
 
   groceryList.forEach((item) => {
@@ -103,15 +103,27 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
       const matchingItem = combinedGroceryList[matchingItemIndex];
       if (matchingItem.quantity && quantity) matchingItem.quantity += quantity;
     }
+  });
 
-    // Assign category to item
-    combinedGroceryList.forEach((item) => {
-      for (const category of categories) {
-        if (item.name && item.name.includes(category.item)) {
-          item.section = category.section;
-        }
+  // Assign category to item
+  combinedGroceryList.forEach((item) => {
+    for (const category of categories) {
+      if (item.name && item.name.includes(category.item)) {
+        item.section = category.section;
+        break;
+      } else {
+        item.section = '';
       }
-    });
+    }
+  });
+
+  // Sort output by section
+  combinedGroceryList = combinedGroceryList.sort((a, b) => {
+    if (a.section && b.section) {
+      return a.section.localeCompare(b.section);
+    } else {
+      return 0;
+    }
   });
 
   return combinedGroceryList;
