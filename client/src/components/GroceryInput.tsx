@@ -18,7 +18,11 @@ interface ResponseData {
 }
 
 const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
-  const [groceryInput, setGroceryInput] = useState('');
+  // const [groceryInput, setGroceryInput] = useState('');
+  const testInput = ['6 pounds chicken', '2 lb chicken', '1 lb carrots'].join(
+    '\n\n'
+  );
+  const [groceryInput, setGroceryInput] = useState(testInput);
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLElement>
