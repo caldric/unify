@@ -1,11 +1,11 @@
 interface Category {
   item: string;
-  sections: string[];
+  section: string;
 }
 
 const categories: Category[] = [
-  { item: 'chicken', sections: ['meat'] },
-  { item: 'carrot', sections: ['produce'] },
+  { item: 'chicken', section: 'meat' },
+  { item: 'carrot', section: 'produce' },
 ];
 
 export { categories };

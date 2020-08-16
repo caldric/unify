@@ -7,7 +7,7 @@ interface GroceryOutput {
   quantity?: number;
   unit?: string;
   name?: string;
-  sections?: string[];
+  sections?: string;
 }
 
 // Config
@@ -108,7 +108,7 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
     combinedGroceryList.forEach((item) => {
       for (const category of categories) {
         if (item.name && item.name.includes(category.item)) {
-          item.sections = category.sections;
+          item.sections = category.section;
         }
       }
     });
