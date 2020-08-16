@@ -10,11 +10,16 @@ interface GroceryOutput {
   section?: string;
 }
 
+interface GroupedGroceryOutput {
+  section: string;
+  contents: GroceryOutput[];
+}
+
 // Config
 const apiRouter = express.Router();
 
 // Main app logic function
-const combineGroceries = (groceries: string): GroceryOutput[] => {
+const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   // Store each item as an element in an array
   let groceryList: GroceryOutput[] = groceries.split('\n').map((item) => {
     return { input: item };
@@ -112,7 +117,7 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
         item.section = category.section;
         break;
       } else {
-        item.section = '';
+        item.section = 'other';
       }
     }
   });
@@ -126,14 +131,46 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
     }
   });
 
-  return combinedGroceryList;
+  // Group output by section
+  const groupedGroceryList: GroupedGroceryOutput[] = [];
+  const groups: string[] = [];
+  combinedGroceryList.forEach((item) => {
+    // Check if group already exists
+    if (item.section && !groups.includes(item.section)) {
+      // Case: group does not yet exist
+      // Push new group onto groups
+      groups.push(item.section);
+
+      // Add new section and content to groupedGroceryList
+      groupedGroceryList.push({
+        section: item.section,
+        contents: [item],
+      });
+    } else {
+      // Search for the index of the matching group
+      const matchingGroupIndex = groupedGroceryList.findIndex(
+        (matchingItem) => matchingItem.section === item.section
+      );
+
+      // Add new content to pre-existing group
+      const matchingGroup = groupedGroceryList[matchingGroupIndex];
+      matchingGroup.contents.push(item);
+    }
+  });
+
+  return groupedGroceryList;
 };
 
 // Routes
 apiRouter.post('/', (req, res) => {
+  // Obtain input from client
   const { input }: { input: string } = req.body;
+
+  // Run input through main logic function
   const combinedGroceries = combineGroceries(input);
   console.log(combinedGroceries);
+
+  // Send response
   res.status(200).json({
     message: 'Post request successful',
     output: combinedGroceries,
