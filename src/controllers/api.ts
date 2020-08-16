@@ -1,10 +1,5 @@
 import express from 'express';
-
-interface Unit {
-  name: string;
-  type: 'volume' | 'weight';
-  variants: string[];
-}
+import { units } from '../models/units';
 
 interface GroceryOutput {
   input?: string;
@@ -15,19 +10,6 @@ interface GroceryOutput {
 
 // Config
 const apiRouter = express.Router();
-
-const units: Unit[] = [
-  {
-    name: 'tablespoon',
-    type: 'volume',
-    variants: ['tbsps', 'tbsp', 'tablespoons', 'tablespoon'],
-  },
-  {
-    name: 'pound',
-    type: 'weight',
-    variants: ['pounds', 'pound', 'lbs', 'lb'],
-  },
-];
 
 // Main app logic function
 const combineGroceries = (groceries: string): GroceryOutput[] => {
