@@ -49,7 +49,8 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
   groceryList.forEach((item) => {
     if (item.input) {
       const commaIndex = item.input.indexOf(',');
-      const filteredItem = item.input.slice(0, commaIndex);
+      const filteredItem =
+        commaIndex !== -1 ? item.input.slice(0, commaIndex) : item.input;
       item.input = filteredItem;
     }
   });
