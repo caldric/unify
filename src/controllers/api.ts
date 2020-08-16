@@ -1,11 +1,13 @@
 import express from 'express';
 import { units } from '../models/units';
+import { categories } from '../models/categories';
 
 interface GroceryOutput {
   input?: string;
   quantity?: number;
   unit?: string;
   name?: string;
+  sections?: string[];
 }
 
 // Config
@@ -101,6 +103,15 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
       const matchingItem = combinedGroceryList[matchingItemIndex];
       if (matchingItem.quantity && quantity) matchingItem.quantity += quantity;
     }
+
+    // Assign category to item
+    combinedGroceryList.forEach((item) => {
+      for (const category of categories) {
+        if (item.name && item.name.includes(category.item)) {
+          item.sections = category.sections;
+        }
+      }
+    });
   });
 
   return combinedGroceryList;
