@@ -52,19 +52,25 @@ const removeAdjectives = (input: GroceryOutput[]): GroceryOutput[] => {
   return output;
 };
 
+// Extract quantity from input
+const extractQuantity = (input: GroceryOutput[]): GroceryOutput[] => {
+  const output: GroceryOutput[] = input.map((item) => {
+    const { input, unit, name, section } = item;
+    const qtyRegex = /\d+/;
+    const newQuantity: number = Number(input.match(qtyRegex));
+    return { input, unit, name, section, quantity: newQuantity };
+  });
+
+  return output;
+};
+
 // Main app logic function
 const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   let groceryList = inputToList(groceries);
   groceryList = removeWhitespace(groceryList);
   groceryList = inputToLowercase(groceryList);
   groceryList = removeAdjectives(groceryList);
-
-  // Extract quantity
-  const qtyRegex = /\d+/;
-  groceryList.forEach(
-    (item) =>
-      (item.quantity = item.input ? Number(item.input.match(qtyRegex)) : 0)
-  );
+  groceryList = extractQuantity(groceryList);
 
   // Extract units and item
   // console.log('Prior to extracting units and item: ', groceryList);
