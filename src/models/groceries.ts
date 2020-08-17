@@ -99,7 +99,6 @@ const getName = (groceryList: GroceryItem[]): GroceryItem[] => {
 
     if (unit !== 'count') {
       // If unit is present, item name is after the unit
-
       // Get matching unit and its variants
       const matchingUnitIndex = units.findIndex((u) => u.name === unit);
       const unitVariants = units[matchingUnitIndex].variants;
@@ -132,35 +131,28 @@ const getName = (groceryList: GroceryItem[]): GroceryItem[] => {
   return output;
 };
 
+// Combine the quantities of similar items
 const combineQuantities = (groceryList: GroceryItem[]): GroceryItem[] => {
-  // Combine similar items
   let combinedGroceryList: GroceryItem[] = [];
   const combinedItemNames: string[] = [];
 
-  // console.log('Current grocery list: ', groceryList);
   groceryList.forEach((item) => {
-    // console.log('Current item: ', item);
     // Check if item is already present in the grocery list inputs
     if (!combinedItemNames.includes(item.name)) {
       // Case: item is not yet present
-      // console.log(`${item.name} is not yet present`);
       combinedItemNames.push(item.name);
 
       // Store the new item in combinedGroceryList
       const { input, quantity, unit, name, section } = item;
       combinedGroceryList.push({ input, quantity, unit, name, section });
-      // console.log('Combined grocery list: ', combinedGroceryList);
     } else {
       // Case: item is already present
-      // console.log(`${item.name} is already present`);
-
       // Search for the index of the matching item in combined list
       const matchingItemIndex = combinedGroceryList.findIndex(
         (matchingItem) => matchingItem.name === item.name
       );
 
       // Increment the quantity of the item
-      // console.log(item);
       const { quantity } = item;
       const matchingItem = combinedGroceryList[matchingItemIndex];
       if (matchingItem.quantity && quantity) matchingItem.quantity += quantity;
@@ -179,41 +171,8 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
   groceryList = getQuantities(groceryList);
   groceryList = getUnits(groceryList);
   groceryList = getName(groceryList);
-  // groceryList = combineQuantities(groceryList);
 
-  // Combine similar items
-  let combinedGroceryList: GroceryItem[] = [];
-  const combinedItemNames: string[] = [];
-
-  // console.log('Current grocery list: ', groceryList);
-  groceryList.forEach((item) => {
-    // console.log('Current item: ', item);
-    // Check if item is already present in the grocery list inputs
-    if (!combinedItemNames.includes(item.name)) {
-      // Case: item is not yet present
-      // console.log(`${item.name} is not yet present`);
-      combinedItemNames.push(item.name);
-
-      // Store the new item in combinedGroceryList
-      const { input, quantity, unit, name, section } = item;
-      combinedGroceryList.push({ input, quantity, unit, name, section });
-      // console.log('Combined grocery list: ', combinedGroceryList);
-    } else {
-      // Case: item is already present
-      // console.log(`${item.name} is already present`);
-
-      // Search for the index of the matching item in combined list
-      const matchingItemIndex = combinedGroceryList.findIndex(
-        (matchingItem) => matchingItem.name === item.name
-      );
-
-      // Increment the quantity of the item
-      // console.log(item);
-      const { quantity } = item;
-      const matchingItem = combinedGroceryList[matchingItemIndex];
-      if (matchingItem.quantity && quantity) matchingItem.quantity += quantity;
-    }
-  });
+  let combinedGroceryList = combineQuantities(groceryList);
 
   // Assign category to item
   combinedGroceryList.forEach((item) => {
