@@ -14,6 +14,19 @@ interface GroceryOutput {
   contents: GroceryItem[];
 }
 
+// General functions
+const convertToDecimal = (fractionString: string): number => {
+  const numbers: string[] = fractionString.split('/');
+  if (numbers.length === 2) {
+    const numerator: number = Number(numbers[0]);
+    const denominator: number = Number(numbers[1]);
+    return numerator / denominator;
+  } else {
+    return 0;
+  }
+};
+
+// Conversion functions
 // Store each item as an element in an array
 const inputToList = (userTextInput: string): GroceryItem[] => {
   const output: GroceryItem[] = userTextInput.split('\n').map((item) => {
@@ -56,8 +69,14 @@ const removeAdjectives = (groceryList: GroceryItem[]): GroceryItem[] => {
 const getQuantities = (groceryList: GroceryItem[]): GroceryItem[] => {
   const output: GroceryItem[] = groceryList.map((item) => {
     const { input, unit, name, section } = item;
-    const qtyRegex = /\d+/;
-    const newQuantity: number = Number(input.match(qtyRegex));
+
+    const qtyRegex = /\d+(\/\d+)?/;
+    const regexMatch = input.match(qtyRegex);
+    const quantityString: string = regexMatch ? regexMatch[0] : '';
+    const newQuantity: number = input.includes('/')
+      ? convertToDecimal(quantityString)
+      : Number(quantityString);
+
     return { input, unit, name, section, quantity: newQuantity };
   });
 
@@ -120,8 +139,9 @@ const getName = (groceryList: GroceryItem[]): GroceryItem[] => {
       );
     } else {
       // If unit is not present, item name is after the quantity
-      // Regex: one or more digits followed by zero or more spaces
-      const qtyRegex = /\d+\s*/;
+      // Regex: one or more digits followed by an optional denominator
+      // followed by a whitespace character
+      const qtyRegex = /\d+(\/\d+)?\s+/;
       newName = input.replace(qtyRegex, '');
     }
 
