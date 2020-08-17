@@ -39,22 +39,25 @@ const inputToLowercase = (input: GroceryOutput[]): GroceryOutput[] => {
   return output;
 };
 
+// Remove adjectives, i.e., characters after comma
+// Assumption: adjectives after the comma are unneeded
+const removeAdjectives = (input: GroceryOutput[]): GroceryOutput[] => {
+  const output: GroceryOutput[] = input.map((item) => {
+    const { input, quantity, unit, name, section } = item;
+    const commaIndex = input.indexOf(',');
+    const newInput = commaIndex !== -1 ? input.slice(0, commaIndex) : input;
+    return { quantity, unit, name, section, input: newInput };
+  });
+
+  return output;
+};
+
 // Main app logic function
 const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   let groceryList = inputToList(groceries);
   groceryList = removeWhitespace(groceryList);
   groceryList = inputToLowercase(groceryList);
-
-  // Remove characters after comma
-  // Assumption: adjectives after the comma are unneeded
-  groceryList.forEach((item) => {
-    if (item.input) {
-      const commaIndex = item.input.indexOf(',');
-      const filteredItem =
-        commaIndex !== -1 ? item.input.slice(0, commaIndex) : item.input;
-      item.input = filteredItem;
-    }
-  });
+  groceryList = removeAdjectives(groceryList);
 
   // Extract quantity
   const qtyRegex = /\d+/;
