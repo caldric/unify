@@ -27,7 +27,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   });
 
   // Remove extra whitespace
-  // They should now just be ''
+  // They should now just be '' at this point
   groceryList = groceryList.filter((item) => item.input !== '');
 
   // Convert all items to lowercase
@@ -36,6 +36,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   );
 
   // Remove characters after comma
+  // Assumption: adjectives after the comma are unneeded
   groceryList.forEach((item) => {
     if (item.input) {
       const commaIndex = item.input.indexOf(',');
@@ -59,7 +60,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
       let exitEarly = false;
 
       for (const unitVariant of unit.variants) {
-        if (item.input && item.input.includes(unitVariant)) {
+        if (item.input.includes(unitVariant)) {
           // Extract unit
           item.unit = unit.name;
 
@@ -80,7 +81,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
       if (exitEarly) break;
     }
 
-    // If units is not found, extract item name differently
+    // If unit is not found at this point, extract item name differently
     if (!item.name) {
       if (item.quantity) {
         // One or more digits followed by zero or more spaces
@@ -98,7 +99,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   groceryList.forEach((item) => {
     // console.log('Current item: ', item);
     // Check if item is already present in the grocery list inputs
-    if (item.name && !combinedItemNames.includes(item.name)) {
+    if (!combinedItemNames.includes(item.name)) {
       // Case: item is not yet present
       // console.log(`${item.name} is not yet present`);
       combinedItemNames.push(item.name);
@@ -127,7 +128,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   // Assign category to item
   combinedGroceryList.forEach((item) => {
     for (const category of categories) {
-      if (item.name && item.name.includes(category.item)) {
+      if (item.name.includes(category.item)) {
         item.section = category.section;
         break;
       } else {
@@ -150,7 +151,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   const groups: string[] = [];
   combinedGroceryList.forEach((item) => {
     // Check if group already exists
-    if (item.section && !groups.includes(item.section)) {
+    if (!groups.includes(item.section)) {
       // Case: group does not yet exist
       // Push new group onto groups
       groups.push(item.section);
