@@ -183,6 +183,11 @@ const combineQuantities = (groceryList: GroceryItem[]): GroceryItem[] => {
   return combinedGroceryList;
 };
 
+// Sort by section
+const sortBySection = (groceryList: GroceryItem[]): GroceryItem[] => {
+  return [...groceryList].sort((a, b) => a.section.localeCompare(b.section));
+};
+
 // Main app logic function
 const combineGroceries = (groceries: string): GroceryOutput[] => {
   let groceryList = inputToList(groceries);
@@ -195,15 +200,7 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
 
   let combinedGroceryList = combineQuantities(groceryList);
   combinedGroceryList = assignCategories(combinedGroceryList);
-
-  // Sort output by section
-  combinedGroceryList = combinedGroceryList.sort((a, b) => {
-    if (a.section && b.section) {
-      return a.section.localeCompare(b.section);
-    } else {
-      return 0;
-    }
-  });
+  combinedGroceryList = sortBySection(combinedGroceryList);
 
   // Group output by section
   const groupedGroceryList: GroceryOutput[] = [];
