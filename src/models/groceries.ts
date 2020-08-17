@@ -67,8 +67,8 @@ const getQuantities = (input: GroceryOutput[]): GroceryOutput[] => {
 // Extract units from input
 const getUnits = (input: GroceryOutput[]): GroceryOutput[] => {
   const output: GroceryOutput[] = input.map((item) => {
-    const { input, quantity, name, section } = item;
-    let newUnit = 'count';
+    const { input, quantity, unit, name, section } = item;
+    let newUnit = unit;
 
     for (const unit of units) {
       let unitFound = false;
@@ -95,7 +95,7 @@ const getUnits = (input: GroceryOutput[]): GroceryOutput[] => {
 const getName = (input: GroceryOutput[]): GroceryOutput[] => {
   const output = input.map((item) => {
     const { input, quantity, unit, name, section } = item;
-    let newName = '';
+    let newName = name;
 
     if (unit !== 'count') {
       // If unit is present, item name is after the unit
