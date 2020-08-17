@@ -45,6 +45,11 @@ const units: Unit[] = [
     type: 'count',
     variants: ['cloves', 'clove'],
   },
+  {
+    name: 'pcs',
+    type: 'count',
+    variants: ['pieces', 'piece', 'pcs', 'pc'],
+  },
 ];
 
 export { units };

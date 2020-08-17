@@ -1,6 +1,6 @@
 interface Category {
   item: string;
-  section: string;
+  section: 'meat' | 'produce' | 'oil' | 'condiment' | 'beverage';
 }
 
 const categories: Category[] = [
@@ -26,15 +26,15 @@ const categories: Category[] = [
   },
   {
     item: 'red pepper flakes',
-    section: 'condiments',
+    section: 'condiment',
   },
   {
     item: 'salt',
-    section: 'condiments',
+    section: 'condiment',
   },
   {
     item: 'pepper',
-    section: 'condiments',
+    section: 'condiment',
   },
   {
     item: 'onion',
@@ -59,6 +59,30 @@ const categories: Category[] = [
   {
     item: 'garlic',
     section: 'produce',
+  },
+  {
+    item: 'beef',
+    section: 'meat',
+  },
+  {
+    item: 'cabbage',
+    section: 'produce',
+  },
+  {
+    item: 'pechay',
+    section: 'produce',
+  },
+  {
+    item: 'corn',
+    section: 'produce',
+  },
+  {
+    item: 'water',
+    section: 'beverage',
+  },
+  {
+    item: 'fish sauce',
+    section: 'condiment',
   },
 ];
 
