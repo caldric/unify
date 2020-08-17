@@ -1,9 +1,37 @@
 interface Category {
   item: string;
-  section: 'meat' | 'produce' | 'oil' | 'condiment' | 'beverage';
+  section: 'meat' | 'produce' | 'oil' | 'condiment' | 'beverage' | 'noodle';
 }
 
 const categories: Category[] = [
+  {
+    item: 'soy sauce',
+    section: 'condiment',
+  },
+  {
+    item: 'chicken cube',
+    section: 'condiment',
+  },
+  {
+    item: 'pork',
+    section: 'meat',
+  },
+  {
+    item: 'pea pods',
+    section: 'produce',
+  },
+  {
+    item: 'snow peas',
+    section: 'produce',
+  },
+  {
+    item: 'celery',
+    section: 'produce',
+  },
+  {
+    item: 'pancit',
+    section: 'noodle',
+  },
   {
     item: 'chicken',
     section: 'meat',
