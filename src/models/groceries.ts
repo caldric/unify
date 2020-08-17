@@ -53,12 +53,80 @@ const removeAdjectives = (input: GroceryOutput[]): GroceryOutput[] => {
 };
 
 // Extract quantity from input
-const extractQuantity = (input: GroceryOutput[]): GroceryOutput[] => {
+const getQuantities = (input: GroceryOutput[]): GroceryOutput[] => {
   const output: GroceryOutput[] = input.map((item) => {
     const { input, unit, name, section } = item;
     const qtyRegex = /\d+/;
     const newQuantity: number = Number(input.match(qtyRegex));
     return { input, unit, name, section, quantity: newQuantity };
+  });
+
+  return output;
+};
+
+// Extract units from input
+const getUnits = (input: GroceryOutput[]): GroceryOutput[] => {
+  const output: GroceryOutput[] = input.map((item) => {
+    const { input, quantity, name, section } = item;
+    let newUnit = 'count';
+
+    for (const unit of units) {
+      let unitFound = false;
+
+      for (const unitVariant of unit.variants) {
+        // console.log('Current unit variant: ', unitVariant);
+        if (input.includes(unitVariant)) {
+          newUnit = unit.name;
+          unitFound = true;
+          break;
+        }
+      }
+
+      if (unitFound) break;
+    }
+
+    return { input, quantity, name, section, unit: newUnit };
+  });
+
+  return output;
+};
+
+// Extract name from input
+const getName = (input: GroceryOutput[]): GroceryOutput[] => {
+  const output = input.map((item) => {
+    const { input, quantity, unit, name, section } = item;
+    let newName = '';
+
+    if (unit !== 'count') {
+      // If unit is present, item name is after the unit
+
+      // Get matching unit and its variants
+      const matchingUnitIndex = units.findIndex((u) => u.name === unit);
+      const unitVariants = units[matchingUnitIndex].variants;
+
+      // Get matching unit variant
+      let matchingUnitVariant = '';
+      for (const unitVariant of unitVariants) {
+        if (input.includes(unitVariant)) {
+          matchingUnitVariant = unitVariant;
+          break;
+        }
+      }
+
+      // Get item name after unit
+      // Assumption: item name is after the unit and ONE space
+      const matchingUnitVariantIndex = input.indexOf(matchingUnitVariant);
+      newName = input.slice(
+        matchingUnitVariantIndex + matchingUnitVariant.length + 1
+      );
+    } else {
+      // If unit is not present, item name is after the quantity
+      // Regex: one or more digits followed by zero or more spaces
+      const qtyRegex = /\d+\s*/;
+      newName = input.replace(qtyRegex, '');
+    }
+
+    return { input, quantity, unit, section, name: newName };
   });
 
   return output;
@@ -70,45 +138,9 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   groceryList = removeWhitespace(groceryList);
   groceryList = inputToLowercase(groceryList);
   groceryList = removeAdjectives(groceryList);
-  groceryList = extractQuantity(groceryList);
-
-  // Extract units and item
-  // console.log('Prior to extracting units and item: ', groceryList);
-  groceryList.forEach((item) => {
-    for (const unit of units) {
-      let exitEarly = false;
-
-      for (const unitVariant of unit.variants) {
-        if (item.input.includes(unitVariant)) {
-          // Extract unit
-          item.unit = unit.name;
-
-          // Extract item
-          const unitVariantIndex = item.input.indexOf(unitVariant);
-          // This is making the assumption that there's always a space
-          // between the unit and the item name
-          item.name = item.input.slice(
-            unitVariantIndex + unitVariant.length + 1
-          );
-
-          // Exit loops
-          exitEarly = true;
-          break;
-        }
-      }
-
-      if (exitEarly) break;
-    }
-
-    // If unit is not found at this point, extract item name differently
-    if (!item.name) {
-      if (item.quantity) {
-        // One or more digits followed by zero or more spaces
-        const qtyRegex = /\d+\s*/;
-        item.name = item.input.replace(qtyRegex, '');
-      }
-    }
-  });
+  groceryList = getQuantities(groceryList);
+  groceryList = getUnits(groceryList);
+  groceryList = getName(groceryList);
 
   // Combine similar items
   let combinedGroceryList: GroceryOutput[] = [];

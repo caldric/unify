@@ -1,6 +1,6 @@
 interface Unit {
   name: string;
-  type: 'volume' | 'weight';
+  type: 'volume' | 'weight' | 'count';
   variants: string[];
 }
 
@@ -14,6 +14,11 @@ const units: Unit[] = [
     name: 'lb',
     type: 'weight',
     variants: ['pounds', 'pound', 'lbs', 'lb'],
+  },
+  {
+    name: 'count',
+    type: 'count',
+    variants: ['count'],
   },
 ];
 
