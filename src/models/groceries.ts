@@ -65,6 +65,19 @@ const removeAdjectives = (groceryList: GroceryItem[]): GroceryItem[] => {
   return output;
 };
 
+// Remove parenthetical statements
+// Assumption: parenthetical statements are unneeded
+const removeParenStmt = (groceryList: GroceryItem[]): GroceryItem[] => {
+  const output: GroceryItem[] = groceryList.map((item) => {
+    const { input, quantity, unit, name, section } = item;
+    const parenRegex = /\s+\(.*\)/;
+    const newInput = input.replace(parenRegex, '');
+    return { quantity, unit, name, section, input: newInput };
+  });
+
+  return output;
+};
+
 // Extract quantity from input
 const getQuantities = (groceryList: GroceryItem[]): GroceryItem[] => {
   const output: GroceryItem[] = groceryList.map((item) => {
@@ -246,6 +259,7 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
   groceryList = removeWhitespace(groceryList);
   groceryList = inputToLowercase(groceryList);
   groceryList = removeAdjectives(groceryList);
+  groceryList = removeParenStmt(groceryList);
   groceryList = getQuantities(groceryList);
   groceryList = getUnits(groceryList);
   groceryList = getName(groceryList);
