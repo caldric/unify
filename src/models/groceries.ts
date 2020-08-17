@@ -131,6 +131,27 @@ const getName = (groceryList: GroceryItem[]): GroceryItem[] => {
   return output;
 };
 
+// Assign categories based on name
+const assignCategories = (groceryList: GroceryItem[]): GroceryItem[] => {
+  const output: GroceryItem[] = groceryList.map((item) => {
+    const { input, quantity, unit, name, section } = item;
+    let newSection = section;
+
+    for (const category of categories) {
+      if (item.name.includes(category.item)) {
+        newSection = category.section;
+        break;
+      } else {
+        newSection = 'other';
+      }
+    }
+
+    return { input, quantity, unit, name, section: newSection };
+  });
+
+  return output;
+};
+
 // Combine the quantities of similar items
 const combineQuantities = (groceryList: GroceryItem[]): GroceryItem[] => {
   let combinedGroceryList: GroceryItem[] = [];
@@ -173,18 +194,7 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
   groceryList = getName(groceryList);
 
   let combinedGroceryList = combineQuantities(groceryList);
-
-  // Assign category to item
-  combinedGroceryList.forEach((item) => {
-    for (const category of categories) {
-      if (item.name.includes(category.item)) {
-        item.section = category.section;
-        break;
-      } else {
-        item.section = 'other';
-      }
-    }
-  });
+  combinedGroceryList = assignCategories(combinedGroceryList);
 
   // Sort output by section
   combinedGroceryList = combinedGroceryList.sort((a, b) => {
