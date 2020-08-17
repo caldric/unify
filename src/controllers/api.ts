@@ -53,6 +53,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   );
 
   // Extract units and item
+  // console.log('Prior to extracting units and item: ', groceryList);
   groceryList.forEach((item) => {
     for (const unit of units) {
       let exitEarly = false;
@@ -78,6 +79,15 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
 
       if (exitEarly) break;
     }
+
+    // If units is not found, extract item name differently
+    if (!item.name) {
+      if (item.quantity) {
+        // One or more digits followed by zero or more spaces
+        const qtyRegex = /\d+\s*/;
+        item.name = item.input.replace(qtyRegex, '');
+      }
+    }
   });
 
   // Combine similar items
@@ -86,20 +96,20 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
 
   // console.log('Current grocery list: ', groceryList);
   groceryList.forEach((item) => {
-    console.log('Current item: ', item);
+    // console.log('Current item: ', item);
     // Check if item is already present in the grocery list inputs
     if (item.name && !combinedItemNames.includes(item.name)) {
       // Case: item is not yet present
-      console.log(`${item.name} is not yet present`);
+      // console.log(`${item.name} is not yet present`);
       combinedItemNames.push(item.name);
 
       // Store the new item in combinedGroceryList
-      const { quantity, unit, name } = item;
-      combinedGroceryList.push({ quantity, unit, name });
+      const { input, quantity, unit, name, section } = item;
+      combinedGroceryList.push({ input, quantity, unit, name, section });
       // console.log('Combined grocery list: ', combinedGroceryList);
     } else {
       // Case: item is already present
-      console.log(`${item.name} is already present`);
+      // console.log(`${item.name} is already present`);
 
       // Search for the index of the matching item in combined list
       const matchingItemIndex = combinedGroceryList.findIndex(
@@ -107,7 +117,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
       );
 
       // Increment the quantity of the item
-      console.log(item);
+      // console.log(item);
       const { quantity } = item;
       const matchingItem = combinedGroceryList[matchingItemIndex];
       if (matchingItem.quantity && quantity) matchingItem.quantity += quantity;
@@ -172,7 +182,6 @@ apiRouter.post('/', (req, res) => {
 
   // Run input through main logic function
   const combinedGroceries = combineGroceries(input);
-  console.log(combinedGroceries);
 
   // Send response
   res.status(200).json({
