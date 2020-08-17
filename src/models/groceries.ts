@@ -1,7 +1,7 @@
 import { units } from './units';
 import { categories } from './categories';
 
-interface GroceryOutput {
+interface GroceryItem {
   input: string;
   quantity: number;
   unit: string;
@@ -9,14 +9,14 @@ interface GroceryOutput {
   section: string;
 }
 
-interface GroupedGroceryOutput {
+interface GroceryOutput {
   section: string;
-  contents: GroceryOutput[];
+  contents: GroceryItem[];
 }
 
 // Store each item as an element in an array
-const inputToList = (input: string): GroceryOutput[] => {
-  const output: GroceryOutput[] = input.split('\n').map((item) => {
+const inputToList = (input: string): GroceryItem[] => {
+  const output: GroceryItem[] = input.split('\n').map((item) => {
     // Set up default values
     return { input: item, quantity: 0, unit: 'count', name: '', section: '' };
   });
@@ -24,13 +24,13 @@ const inputToList = (input: string): GroceryOutput[] => {
 };
 
 // Remove new line characters from list
-const removeWhitespace = (input: GroceryOutput[]): GroceryOutput[] => {
+const removeWhitespace = (input: GroceryItem[]): GroceryItem[] => {
   return input.filter((item) => item.input !== '');
 };
 
 // Convert all items to lowercase
-const inputToLowercase = (input: GroceryOutput[]): GroceryOutput[] => {
-  const output: GroceryOutput[] = input.map((item) => {
+const inputToLowercase = (input: GroceryItem[]): GroceryItem[] => {
+  const output: GroceryItem[] = input.map((item) => {
     const { input, quantity, unit, name, section } = item;
     const newInput = input.toLowerCase();
     return { quantity, unit, section, name, input: newInput };
@@ -41,8 +41,8 @@ const inputToLowercase = (input: GroceryOutput[]): GroceryOutput[] => {
 
 // Remove adjectives, i.e., characters after comma
 // Assumption: adjectives after the comma are unneeded
-const removeAdjectives = (input: GroceryOutput[]): GroceryOutput[] => {
-  const output: GroceryOutput[] = input.map((item) => {
+const removeAdjectives = (input: GroceryItem[]): GroceryItem[] => {
+  const output: GroceryItem[] = input.map((item) => {
     const { input, quantity, unit, name, section } = item;
     const commaIndex = input.indexOf(',');
     const newInput = commaIndex !== -1 ? input.slice(0, commaIndex) : input;
@@ -53,8 +53,8 @@ const removeAdjectives = (input: GroceryOutput[]): GroceryOutput[] => {
 };
 
 // Extract quantity from input
-const getQuantities = (input: GroceryOutput[]): GroceryOutput[] => {
-  const output: GroceryOutput[] = input.map((item) => {
+const getQuantities = (input: GroceryItem[]): GroceryItem[] => {
+  const output: GroceryItem[] = input.map((item) => {
     const { input, unit, name, section } = item;
     const qtyRegex = /\d+/;
     const newQuantity: number = Number(input.match(qtyRegex));
@@ -65,8 +65,8 @@ const getQuantities = (input: GroceryOutput[]): GroceryOutput[] => {
 };
 
 // Extract units from input
-const getUnits = (input: GroceryOutput[]): GroceryOutput[] => {
-  const output: GroceryOutput[] = input.map((item) => {
+const getUnits = (input: GroceryItem[]): GroceryItem[] => {
+  const output: GroceryItem[] = input.map((item) => {
     const { input, quantity, unit, name, section } = item;
     let newUnit = unit;
 
@@ -92,7 +92,7 @@ const getUnits = (input: GroceryOutput[]): GroceryOutput[] => {
 };
 
 // Extract name from input
-const getName = (input: GroceryOutput[]): GroceryOutput[] => {
+const getName = (input: GroceryItem[]): GroceryItem[] => {
   const output = input.map((item) => {
     const { input, quantity, unit, name, section } = item;
     let newName = name;
@@ -132,8 +132,14 @@ const getName = (input: GroceryOutput[]): GroceryOutput[] => {
   return output;
 };
 
+const combineQuantities = (input: GroceryItem[]): GroceryItem[] => {
+  const output = input;
+
+  return output;
+};
+
 // Main app logic function
-const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
+const combineGroceries = (groceries: string): GroceryOutput[] => {
   let groceryList = inputToList(groceries);
   groceryList = removeWhitespace(groceryList);
   groceryList = inputToLowercase(groceryList);
@@ -143,7 +149,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   groceryList = getName(groceryList);
 
   // Combine similar items
-  let combinedGroceryList: GroceryOutput[] = [];
+  let combinedGroceryList: GroceryItem[] = [];
   const combinedItemNames: string[] = [];
 
   // console.log('Current grocery list: ', groceryList);
@@ -198,7 +204,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   });
 
   // Group output by section
-  const groupedGroceryList: GroupedGroceryOutput[] = [];
+  const groupedGroceryList: GroceryOutput[] = [];
   const groups: string[] = [];
   combinedGroceryList.forEach((item) => {
     // Check if group already exists
