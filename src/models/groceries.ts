@@ -14,22 +14,36 @@ interface GroupedGroceryOutput {
   contents: GroceryOutput[];
 }
 
-// Main app logic function
-const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
-  // Store each item as an element in an array
-  let groceryList: GroceryOutput[] = groceries.split('\n').map((item) => {
+// Store each item as an element in an array
+const inputToList = (input: string): GroceryOutput[] => {
+  const output: GroceryOutput[] = input.split('\n').map((item) => {
     // Set up default values
     return { input: item, quantity: 0, unit: 'count', name: '', section: '' };
   });
+  return output;
+};
 
-  // Remove extra whitespace
-  // They should now just be '' at this point
-  groceryList = groceryList.filter((item) => item.input !== '');
+// Remove new line characters from list
+const removeWhitespace = (input: GroceryOutput[]): GroceryOutput[] => {
+  return input.filter((item) => item.input !== '');
+};
 
-  // Convert all items to lowercase
-  groceryList.forEach(
-    (item) => (item.input = item.input ? item.input.toLowerCase() : '')
-  );
+// Convert all items to lowercase
+const inputToLowercase = (input: GroceryOutput[]): GroceryOutput[] => {
+  const output: GroceryOutput[] = input.map((item) => {
+    const { input, quantity, unit, name, section } = item;
+    const newInput = input.toLowerCase();
+    return { quantity, unit, section, name, input: newInput };
+  });
+
+  return output;
+};
+
+// Main app logic function
+const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
+  let groceryList = inputToList(groceries);
+  groceryList = removeWhitespace(groceryList);
+  groceryList = inputToLowercase(groceryList);
 
   // Remove characters after comma
   // Assumption: adjectives after the comma are unneeded
