@@ -14,14 +14,17 @@ interface Props {
 interface ResponseData {
   message: string;
   input: string;
-  output: string[];
+  output: IGroceryOutput[];
 }
 
 const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
   // const [groceryInput, setGroceryInput] = useState('');
-  const testInput = ['6 pounds chicken', '2 lb chicken', '1 lb carrots'].join(
-    '\n\n'
-  );
+  const testInput = [
+    '6 pounds chicken',
+    '2 lb chicken',
+    '1 lb carrots',
+    '2 lb chicken thighs',
+  ].join('\n\n');
   const [groceryInput, setGroceryInput] = useState(testInput);
 
   const handleSubmit = async (
@@ -43,7 +46,7 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
     console.log(data);
 
     // Assign output data to state
-    // setGroceryOutput(data.output);
+    setGroceryOutput(data.output);
   };
 
   return (

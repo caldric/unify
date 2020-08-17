@@ -5,9 +5,15 @@ import './Home.css';
 import GroceryInput from './GroceryInput';
 import GroceryOutput from './GroceryOutput';
 
+interface GroceryContent {
+  unit: string;
+  name: string;
+  section: string;
+}
+
 export interface IGroceryOutput {
-  input?: string;
-  quantity?: number;
+  section: string;
+  contents: GroceryContent[];
 }
 
 const Home: React.FC = () => {
