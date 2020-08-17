@@ -70,7 +70,7 @@ const getQuantities = (groceryList: GroceryItem[]): GroceryItem[] => {
   const output: GroceryItem[] = groceryList.map((item) => {
     const { input, unit, name, section } = item;
 
-    const qtyRegex = /\d+(\/\d+)?/;
+    const qtyRegex = /\d+((\/\d+)|(.\d+))?/;
     const regexMatch = input.match(qtyRegex);
     const quantityString: string = regexMatch ? regexMatch[0] : '';
     const newQuantity: number = input.includes('/')
@@ -140,8 +140,8 @@ const getName = (groceryList: GroceryItem[]): GroceryItem[] => {
     } else {
       // If unit is not present, item name is after the quantity
       // Regex: one or more digits followed by an optional denominator
-      // followed by a whitespace character
-      const qtyRegex = /\d+(\/\d+)?\s+/;
+      // or an optional decimal part followed by a whitespace character
+      const qtyRegex = /\d+((\/\d+)|(.\d+))?\s+/;
       newName = input.replace(qtyRegex, '');
     }
 
