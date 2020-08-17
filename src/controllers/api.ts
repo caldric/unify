@@ -3,11 +3,11 @@ import { units } from '../models/units';
 import { categories } from '../models/categories';
 
 interface GroceryOutput {
-  input?: string;
-  quantity?: number;
-  unit?: string;
-  name?: string;
-  section?: string;
+  input: string;
+  quantity: number;
+  unit: string;
+  name: string;
+  section: string;
 }
 
 interface GroupedGroceryOutput {
@@ -22,7 +22,8 @@ const apiRouter = express.Router();
 const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   // Store each item as an element in an array
   let groceryList: GroceryOutput[] = groceries.split('\n').map((item) => {
-    return { input: item };
+    // Set up default values
+    return { input: item, quantity: 0, unit: 'count', name: '', section: '' };
   });
 
   // Remove extra whitespace
@@ -83,11 +84,13 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   let combinedGroceryList: GroceryOutput[] = [];
   const combinedItemNames: string[] = [];
 
+  // console.log('Current grocery list: ', groceryList);
   groceryList.forEach((item) => {
+    console.log('Current item: ', item);
     // Check if item is already present in the grocery list inputs
     if (item.name && !combinedItemNames.includes(item.name)) {
       // Case: item is not yet present
-      // console.log(`${item.name} is not yet present`);
+      console.log(`${item.name} is not yet present`);
       combinedItemNames.push(item.name);
 
       // Store the new item in combinedGroceryList
@@ -96,7 +99,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
       // console.log('Combined grocery list: ', combinedGroceryList);
     } else {
       // Case: item is already present
-      // console.log(`${item.name} is already present`);
+      console.log(`${item.name} is already present`);
 
       // Search for the index of the matching item in combined list
       const matchingItemIndex = combinedGroceryList.findIndex(
@@ -104,6 +107,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
       );
 
       // Increment the quantity of the item
+      console.log(item);
       const { quantity } = item;
       const matchingItem = combinedGroceryList[matchingItemIndex];
       if (matchingItem.quantity && quantity) matchingItem.quantity += quantity;
