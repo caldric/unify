@@ -46,7 +46,7 @@ const combineGroceries = (groceries: string): GroupedGroceryOutput[] => {
   });
 
   // Extract quantity
-  const qtyRegex = /\d/;
+  const qtyRegex = /\d+/;
   groceryList.forEach(
     (item) =>
       (item.quantity = item.input ? Number(item.input.match(qtyRegex)) : 0)
