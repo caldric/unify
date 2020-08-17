@@ -27,7 +27,7 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
     'salt and ground black pepper to taste',
     '1/2 sweet onion (such as Vidalia®), chopped',
     '3 cloves garlic, chopped',
-    '1 (14.5 ounce) can whole peeled tomatoes, drained and chopped',
+    '14.5 ounce can whole peeled tomatoes, drained and chopped',
     '1/2 cup dry bread crumbs',
     '1/4 cup grated Parmesan cheese',
     '1 tablespoon chopped fresh basil',
