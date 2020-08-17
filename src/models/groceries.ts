@@ -188,24 +188,12 @@ const sortBySection = (groceryList: GroceryItem[]): GroceryItem[] => {
   return [...groceryList].sort((a, b) => a.section.localeCompare(b.section));
 };
 
-// Main app logic function
-const combineGroceries = (groceries: string): GroceryOutput[] => {
-  let groceryList = inputToList(groceries);
-  groceryList = removeWhitespace(groceryList);
-  groceryList = inputToLowercase(groceryList);
-  groceryList = removeAdjectives(groceryList);
-  groceryList = getQuantities(groceryList);
-  groceryList = getUnits(groceryList);
-  groceryList = getName(groceryList);
-
-  let combinedGroceryList = combineQuantities(groceryList);
-  combinedGroceryList = assignCategories(combinedGroceryList);
-  combinedGroceryList = sortBySection(combinedGroceryList);
-
-  // Group output by section
+// Group by section
+const groupBySection = (groceryList: GroceryItem[]): GroceryOutput[] => {
   const groupedGroceryList: GroceryOutput[] = [];
   const groups: string[] = [];
-  combinedGroceryList.forEach((item) => {
+
+  groceryList.forEach((item) => {
     // Check if group already exists
     if (!groups.includes(item.section)) {
       // Case: group does not yet exist
@@ -228,6 +216,25 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
       matchingGroup.contents.push(item);
     }
   });
+
+  return groupedGroceryList;
+};
+
+// Main app logic function
+const combineGroceries = (groceries: string): GroceryOutput[] => {
+  let groceryList = inputToList(groceries);
+  groceryList = removeWhitespace(groceryList);
+  groceryList = inputToLowercase(groceryList);
+  groceryList = removeAdjectives(groceryList);
+  groceryList = getQuantities(groceryList);
+  groceryList = getUnits(groceryList);
+  groceryList = getName(groceryList);
+
+  let combinedGroceryList = combineQuantities(groceryList);
+  combinedGroceryList = assignCategories(combinedGroceryList);
+  combinedGroceryList = sortBySection(combinedGroceryList);
+
+  const groupedGroceryList = groupBySection(combinedGroceryList);
 
   return groupedGroceryList;
 };
