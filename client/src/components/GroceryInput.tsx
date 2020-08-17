@@ -20,10 +20,11 @@ interface ResponseData {
 const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
   // const [groceryInput, setGroceryInput] = useState('');
   const testInput = [
-    '6 pounds chicken',
-    '2 lb chicken',
-    '1 lb carrots',
+    '6 pounds CHICKEN',
+    '2 lb Chicken',
+    '12 carrots, chopped',
     '2 lb chicken thighs',
+    '10 carrots',
   ].join('\n\n');
   const [groceryInput, setGroceryInput] = useState(testInput);
 
