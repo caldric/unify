@@ -6,12 +6,12 @@ interface Unit {
 
 const units: Unit[] = [
   {
-    name: 'tablespoon',
+    name: 'tbsp',
     type: 'volume',
     variants: ['tbsps', 'tbsp', 'tablespoons', 'tablespoon'],
   },
   {
-    name: 'pound',
+    name: 'lb',
     type: 'weight',
     variants: ['pounds', 'pound', 'lbs', 'lb'],
   },

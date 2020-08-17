@@ -6,6 +6,7 @@ import GroceryInput from './GroceryInput';
 import GroceryOutput from './GroceryOutput';
 
 interface GroceryContent {
+  quantity: number;
   unit: string;
   name: string;
   section: string;
@@ -24,7 +25,7 @@ const Home: React.FC = () => {
       <Container>
         <h1>Groceries</h1>
         <GroceryInput setGroceryOutput={setGroceryOutput} />
-        {/* <GroceryOutput groceryOutput={groceryOutput} /> */}
+        <GroceryOutput groceryOutput={groceryOutput} />
       </Container>
     </main>
   );
