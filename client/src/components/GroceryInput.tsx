@@ -20,12 +20,18 @@ interface ResponseData {
 const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
   // const [groceryInput, setGroceryInput] = useState('');
   const testInput = [
-    '6 pounds CHICKEN',
-    '2 lb Chicken',
-    '12 carrots, chopped',
-    '2 lb chicken thighs',
-    '10 carrots',
-  ].join('\n\n');
+    '2 zucchini, ends trimmed',
+    '3 tablespoons olive oil',
+    '2 links Italian-style chicken sausage, casings removed',
+    '2 teaspoons crushed red pepper flakes (optional)',
+    'salt and ground black pepper to taste',
+    '1/2 sweet onion (such as Vidalia®), chopped',
+    '3 cloves garlic, chopped',
+    '1 (14.5 ounce) can whole peeled tomatoes, drained and chopped',
+    '1/2 cup dry bread crumbs',
+    '1/4 cup grated Parmesan cheese',
+    '1 tablespoon chopped fresh basil',
+  ].join('\n');
   const [groceryInput, setGroceryInput] = useState(testInput);
 
   const handleSubmit = async (
