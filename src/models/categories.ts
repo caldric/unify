@@ -1,6 +1,14 @@
 interface Category {
   item: string;
-  section: 'meat' | 'produce' | 'oil' | 'condiment' | 'beverage' | 'noodle';
+  section:
+    | 'meat'
+    | 'produce'
+    | 'oil'
+    | 'condiment'
+    | 'beverage'
+    | 'noodle'
+    | 'dairy'
+    | 'bread';
 }
 
 const categories: Category[] = [
