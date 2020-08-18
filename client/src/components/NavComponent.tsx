@@ -11,8 +11,11 @@ const NavComponent: React.FC = () => {
           Unify
         </Navbar.Brand>
         <Nav className="ml-auto">
-          <Nav.Link as={Link} to="/test">
-            Test
+          <Nav.Link as={Link} to="/signup">
+            Sign Up
+          </Nav.Link>
+          <Nav.Link as={Link} to="/login">
+            Log In
           </Nav.Link>
         </Nav>
       </Nav>
