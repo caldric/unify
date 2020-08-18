@@ -6,7 +6,9 @@ const Login = () => {
     // Source: https://getbootstrap.com/docs/4.5/examples/floating-labels/
     <div className="container" id="login-page">
       <form className="form-signin">
-        <div className="text-center mb-4">Log In</div>
+        <div className="text-center mb-4">
+          <h2>Log in</h2>
+        </div>
         <div className="form-label-group">
           <input
             type="email"
