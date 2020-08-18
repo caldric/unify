@@ -8,10 +8,44 @@ interface Category {
     | 'beverage'
     | 'noodle'
     | 'dairy'
+    | 'soup'
+    | 'pasta'
     | 'bread';
 }
 
 const categories: Category[] = [
+  {
+    item: 'broth',
+    section: 'soup',
+  },
+  {
+    item: 'chili flakes',
+    section: 'condiment',
+  },
+  {
+    item: 'tomato sauce',
+    section: 'pasta',
+  },
+  {
+    item: 'bay leaves',
+    section: 'condiment',
+  },
+  {
+    item: 'olives',
+    section: 'condiment',
+  },
+  {
+    item: 'potato',
+    section: 'produce',
+  },
+  {
+    item: 'oil',
+    section: 'oil',
+  },
+  {
+    item: 'bell pepper',
+    section: 'produce',
+  },
   {
     item: 'soy sauce',
     section: 'condiment',
