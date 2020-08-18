@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import path from 'path';
 import apiRouter from './controllers/api';
 
+import signupRouter from './controllers/signup';
+
 // Config
 const local = {
   port: 8080,
@@ -24,6 +26,7 @@ mongoose.connection.on('disconnected', () => console.log('Mongo disconnected'));
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 });
 mongoose.connection.once('open', () => {
   console.log('Connected to Mongoose');
@@ -37,6 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Routes
 app.use('/api', apiRouter);
+app.use('/signup', signupRouter);
 app.get('/*', (_, res) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
 });
