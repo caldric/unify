@@ -5,14 +5,35 @@ import path from 'path';
 import apiRouter from './controllers/api';
 
 // Config
+const local = {
+  port: 8080,
+  mongoURI: 'mongodb://localhost:27017/unify',
+  clientURL: 'http://localhost:3000',
+};
+const deployment = {
+  port: process.env.PORT,
+  mongoURI: process.env.MONGODB_URI,
+};
 const app = express();
-const PORT = process.env.PORT || 8080;
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
+const PORT = deployment.port || local.port;
+const MONGODB_URI = deployment.mongoURI || local.mongoURI;
+
+// Connect to MongoDB via Mongoose
+mongoose.connection.on('error', (error) => console.log(error.message));
+mongoose.connection.on('disconnected', () => console.log('Mongo disconnected'));
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+mongoose.connection.once('open', () => {
+  console.log('Connected to Mongoose');
+});
 
 // Middleware
 app.use(express.json());
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 
 // Routes
 app.use('/api', apiRouter);
