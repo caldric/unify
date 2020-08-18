@@ -107,7 +107,6 @@ const getUnits = (groceryList: GroceryItem[]): GroceryItem[] => {
       let unitFound = false;
 
       for (const unitVariant of unit.variants) {
-        // console.log('Current unit variant: ', unitVariant);
         if (input.includes(unitVariant)) {
           newUnit = unit.name;
           unitFound = true;
@@ -219,7 +218,9 @@ const combineQuantities = (groceryList: GroceryItem[]): GroceryItem[] => {
 
 // Sort by section
 const sortBySection = (groceryList: GroceryItem[]): GroceryItem[] => {
-  return [...groceryList].sort((a, b) => a.section.localeCompare(b.section));
+  const output: GroceryItem[] = _.cloneDeep(groceryList);
+  output.sort((a, b) => a.section.localeCompare(b.section));
+  return output;
 };
 
 // Group by section
