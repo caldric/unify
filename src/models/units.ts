@@ -31,9 +31,9 @@ const units: Unit[] = [
     variants: ['ounces', 'ounce', 'oz'],
   },
   {
-    name: 'count',
+    name: 'pcs',
     type: 'count',
-    variants: ['count'],
+    variants: ['count', 'pieces', 'piece', 'pcs', 'pc'],
   },
   {
     name: 'links',
@@ -44,11 +44,6 @@ const units: Unit[] = [
     name: 'cloves',
     type: 'count',
     variants: ['cloves', 'clove'],
-  },
-  {
-    name: 'pcs',
-    type: 'count',
-    variants: ['pieces', 'piece', 'pcs', 'pc'],
   },
 ];
 

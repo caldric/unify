@@ -21,7 +21,9 @@ const convertToDecimal = (fractionString: string): number => {
   if (numbers.length === 2) {
     const numerator: number = Number(numbers[0]);
     const denominator: number = Number(numbers[1]);
-    return numerator / denominator;
+    const fractionValue = numerator / denominator;
+    const roundedDecimal = Math.round(fractionValue * 100) / 100;
+    return roundedDecimal;
   } else {
     return 0;
   }
