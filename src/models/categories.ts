@@ -10,6 +10,7 @@ interface Category {
     | 'dairy'
     | 'soup'
     | 'pasta'
+    | 'ethnic'
     | 'bread';
 }
 
@@ -72,7 +73,7 @@ const categories: Category[] = [
   },
   {
     item: 'pancit',
-    section: 'noodle',
+    section: 'ethnic',
   },
   {
     item: 'chicken',
