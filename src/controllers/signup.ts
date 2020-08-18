@@ -6,7 +6,6 @@ const signupRouter = express.Router();
 
 signupRouter.post('/', async (req, res) => {
   req.body.password = bcrypt.hashSync(req.body.password, 10);
-  console.log(req.body.password);
   await User.create(req.body).catch((err) =>
     res.status(400).json({ message: err.message })
   );

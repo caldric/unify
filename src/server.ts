@@ -5,6 +5,7 @@ import path from 'path';
 import apiRouter from './controllers/api';
 
 import signupRouter from './controllers/signup';
+import loginRouter from './controllers/login';
 
 // Config
 const local = {
@@ -41,6 +42,7 @@ if (process.env.NODE_ENV === 'production') {
 // Routes
 app.use('/api', apiRouter);
 app.use('/signup', signupRouter);
+app.use('/login', loginRouter);
 app.get('/*', (_, res) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
 });
