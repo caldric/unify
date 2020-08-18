@@ -7,7 +7,7 @@ const Login = () => {
     <div className="container" id="login-page">
       <form className="form-signin">
         <div className="text-center mb-4">
-          <h2>Log in</h2>
+          <h2>Sign In</h2>
         </div>
         <div className="form-label-group">
           <input
