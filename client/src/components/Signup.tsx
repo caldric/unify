@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Login = () => {
+const Signup = () => {
   return (
     // Source: https://getbootstrap.com/docs/4.5/examples/floating-labels/
     <div className="container" id="login-page">
       <form className="form-signin">
         <div className="text-center mb-4">
-          <h2>Sign In</h2>
+          <h2>Sign Up</h2>
         </div>
         <div className="form-label-group">
           <input
@@ -20,6 +20,26 @@ const Login = () => {
         </div>
         <div className="form-label-group">
           <input
+            type="text"
+            id="firstName"
+            className="form-control"
+            placeholder="First name"
+            required
+          />
+          <label htmlFor="firstName">First name</label>
+        </div>
+        <div className="form-label-group">
+          <input
+            type="text"
+            id="lastName"
+            className="form-control"
+            placeholder="Last name"
+            required
+          />
+          <label htmlFor="lastName">Last name</label>
+        </div>
+        <div className="form-label-group">
+          <input
             type="password"
             id="password"
             className="form-control"
@@ -29,11 +49,11 @@ const Login = () => {
           <label htmlFor="password">Password</label>
         </div>
         <button type="submit" className="btn btn-lg btn-primary btn-block">
-          Sign In
+          Sign Up
         </button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Signup;
