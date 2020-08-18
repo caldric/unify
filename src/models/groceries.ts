@@ -1,5 +1,6 @@
 import { units } from './units';
 import { categories } from './categories';
+import _ from 'lodash';
 
 interface GroceryItem {
   input: string;
@@ -253,6 +254,14 @@ const groupBySection = (groceryList: GroceryItem[]): GroceryOutput[] => {
   return groupedGroceryList;
 };
 
+const sortItemsInSection = (groupedList: GroceryOutput[]): GroceryOutput[] => {
+  const output: GroceryOutput[] = _.cloneDeep(groupedList);
+  output.forEach((section) => {
+    section.contents.sort((a, b) => a.name.localeCompare(b.name));
+  });
+  return output;
+};
+
 // Main app logic function
 const combineGroceries = (groceries: string): GroceryOutput[] => {
   let groceryList = inputToList(groceries);
@@ -268,7 +277,8 @@ const combineGroceries = (groceries: string): GroceryOutput[] => {
   combinedGroceryList = assignCategories(combinedGroceryList);
   combinedGroceryList = sortBySection(combinedGroceryList);
 
-  const groupedGroceryList = groupBySection(combinedGroceryList);
+  let groupedGroceryList = groupBySection(combinedGroceryList);
+  groupedGroceryList = sortItemsInSection(groupedGroceryList);
 
   return groupedGroceryList;
 };
