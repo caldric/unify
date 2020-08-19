@@ -10,8 +10,8 @@ interface Props {
 
 const GroceryOutput: React.FC<Props> = ({ groceryOutput }) => {
   return (
-    <Container>
-      <h2>Output</h2>
+    <Container className="top-element">
+      <h2>Shopping List</h2>
       {groceryOutput.map((group) => (
         <div className="grocery-section-output" key={group.section}>
           <h3>{group.section}</h3>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
@@ -82,25 +83,27 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
   };
 
   return (
-    <Row className="grocery-input">
-      <Col>
-        <h2>Ingredients</h2>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="grocery-list">
-            <Form.Control
-              as="textarea"
-              rows={25}
-              placeholder="Enter or paste your grocery list items here"
-              value={groceryInput}
-              onChange={(event) => setGroceryInput(event.currentTarget.value)}
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Add All Ingredients to Shopping List
-          </Button>
-        </Form>
-      </Col>
-    </Row>
+    <Container>
+      <Row className="grocery-input top-element">
+        <Col>
+          <h2>Ingredients</h2>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="grocery-list">
+              <Form.Control
+                as="textarea"
+                rows={25}
+                placeholder="Enter or paste your grocery list items here"
+                value={groceryInput}
+                onChange={(event) => setGroceryInput(event.currentTarget.value)}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Add All Ingredients to Shopping List
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
