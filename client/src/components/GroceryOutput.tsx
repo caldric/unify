@@ -3,9 +3,9 @@ import axios from 'axios';
 import './GroceryOutput.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-// import ListGroup from 'react-bootstrap/ListGroup';
 
 import { IGroceryOutput } from '../App';
+import GroceryItem from './GroceryItem';
 
 interface Props {
   groceryOutput: IGroceryOutput[];
@@ -50,9 +50,10 @@ const GroceryOutput: React.FC<Props> = ({
               <hr />
               <ul>
                 {group.contents.map((item) => (
-                  <li
+                  <GroceryItem
                     key={item.name}
-                  >{`${item.quantity} ${item.unit} ${item.name}`}</li>
+                    content={`${item.quantity} ${item.unit} ${item.name}`}
+                  />
                 ))}
               </ul>
             </div>
