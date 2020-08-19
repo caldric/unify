@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Login = () => {
+  // State Hook
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // Prevent page refresh
     event.preventDefault();
@@ -22,6 +26,8 @@ const Login = () => {
             className="form-control"
             placeholder="Email address"
             required
+            value={email}
+            onChange={(event) => setEmail(event.currentTarget.value)}
           />
           <label htmlFor="email">Email</label>
         </div>
@@ -32,6 +38,8 @@ const Login = () => {
             className="form-control"
             placeholder="Password"
             required
+            value={password}
+            onChange={(event) => setPassword(event.currentTarget.value)}
           />
           <label htmlFor="password">Password</label>
         </div>
