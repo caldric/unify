@@ -48,10 +48,19 @@ const App: React.FC = () => {
   };
 
   const getUser = async () => {
+    // Obtain user email from sessionStorage
     const userString = sessionStorage.getItem('user');
     console.log('User string: ', userString);
     const user = userString ? userString : '';
     setUser(user);
+
+    // Obtain logged in status from API
+    const response = await axios({
+      method: 'get',
+      url: `/api/login/status/${user}`,
+    });
+    const { data } = response;
+    setLoggedIn(data.loggedIn);
   };
 
   useEffect(() => {
