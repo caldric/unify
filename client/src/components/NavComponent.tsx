@@ -3,11 +3,7 @@ import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-interface Props {
-  getUser: () => string;
-}
-
-const NavComponent: React.FC<Props> = ({ getUser }) => {
+const NavComponent: React.FC = () => {
   return (
     <Navbar bg="dark" variant="dark" className="fixed-top" id="navbar">
       <Nav className="container-fluid">

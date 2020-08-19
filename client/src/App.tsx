@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 // CSS
@@ -30,15 +30,9 @@ const App: React.FC = () => {
   const [user, setUser] = useState('');
   const [groceryOutput, setGroceryOutput] = useState<IGroceryOutput[]>([]);
 
-  const getUser = (): string => {
-    const userString: string | null = sessionStorage.getItem('user');
-    const user: string = userString ? JSON.parse(userString) : '';
-    return user;
-  };
-
   return (
     <div>
-      <NavComponent getUser={getUser} />
+      <NavComponent />
       <Switch>
         <Route exact path="/">
           <GroceryInput setGroceryOutput={setGroceryOutput} user={user} />
