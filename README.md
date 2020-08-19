@@ -1,6 +1,6 @@
 # Unify
 
-[Unify](https://protected-castle-69616.herokuapp.com/) is a full-stack web application that can transform a string list of food recipe ingredients into a unified shopping list where similar ingredients are combined and categorized. It is built primarily with the MERN (MongoDB, Express.js, React.js, Node.js) stack.
+[Unify](https://getunify.herokuapp.com/) is a full-stack web application that can transform a string list of food recipe ingredients into a unified shopping list where similar ingredients are combined and categorized. It is built primarily with the MERN (MongoDB, Express.js, React.js, Node.js) stack.
 
 ## Technologies
 
