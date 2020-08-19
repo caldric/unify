@@ -67,8 +67,6 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput, user }) => {
     // Prevent page refresh
     event.preventDefault();
 
-    console.log(`Form submitted with value: '${groceryInput}'`);
-
     // Make post request
     const response = await axios({
       method: 'post',
@@ -77,7 +75,6 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput, user }) => {
       data: JSON.stringify({ input: groceryInput, user }),
     });
     const { data }: { data: ResponseData } = response;
-    console.log(data);
 
     // Assign output data to state
     setGroceryOutput(data.output);

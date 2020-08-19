@@ -30,7 +30,6 @@ const Login: React.FC<Props> = ({ setUser, setLoggedIn }) => {
       user,
       loggedIn,
     }: { user: string; loggedIn: boolean } = response.data;
-    console.log('Logged in: ', loggedIn);
 
     if (response.status === 200) {
       sessionStorage.setItem('user', user);
