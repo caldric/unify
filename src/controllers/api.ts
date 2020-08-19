@@ -54,8 +54,25 @@ apiRouter.get('/:email', async (req: Request, res: Response) => {
       const shoppingList = await ShoppingList.findOne({ userID: user._id });
       res.status(200).json({
         message: 'Successfully retrieved shopping list',
-        shoppingList,
+        shoppingList: shoppingList ? shoppingList : {},
       });
+    } else {
+      throw new Error('User not found');
+    }
+  } catch (err) {
+    res.status(400).json({ message: err.message, shoppingList: {} });
+  }
+});
+
+apiRouter.delete('/:email', async (req: Request, res: Response) => {
+  try {
+    // Obtain user ID
+    const user = await User.findOne({ email: req.params.email });
+
+    if (user) {
+      // Send back shopping list as the response
+      const shoppingList = await ShoppingList.deleteMany({ userID: user._id });
+      res.status(200).json({ message: 'Successfully deleted shopping list' });
     } else {
       throw new Error('User not found');
     }

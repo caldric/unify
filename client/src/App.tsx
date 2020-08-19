@@ -32,8 +32,6 @@ const App: React.FC = () => {
   const [groceryOutput, setGroceryOutput] = useState<IGroceryOutput[]>([]);
 
   const getShoppingList = async () => {
-    console.log('Triggered');
-
     if (user) {
       // Request shopping list from API
       const response = await axios({
@@ -42,7 +40,9 @@ const App: React.FC = () => {
       });
 
       // Set state
-      setGroceryOutput(response.data.shoppingList.items);
+      const { shoppingList } = response.data;
+      const items = Object.keys(shoppingList).length ? shoppingList.items : [];
+      setGroceryOutput(items);
     }
   };
 
@@ -64,7 +64,11 @@ const App: React.FC = () => {
           <Signup />
         </Route>
         <Route exact path="/shopping-list">
-          <GroceryOutput groceryOutput={groceryOutput} />
+          <GroceryOutput
+            groceryOutput={groceryOutput}
+            user={user}
+            setGroceryOutput={setGroceryOutput}
+          />
         </Route>
       </Switch>
     </div>
