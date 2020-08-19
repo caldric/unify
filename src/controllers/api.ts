@@ -19,6 +19,9 @@ apiRouter.post('/', async (req: Request, res: Response) => {
     const userDocument = await User.findOne({ email: user });
 
     if (userDocument) {
+      // Delete pre-existing shopping list
+      await ShoppingList.deleteMany({ userID: userDocument._id });
+
       // Create shopping list
       const shoppingList = new ShoppingList({
         userID: userDocument._id,
