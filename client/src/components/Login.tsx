@@ -23,6 +23,12 @@ const Login = () => {
     // Check for response
     console.log(response.data);
 
+    // Store user in session storage
+    const { user }: { user: string } = response.data;
+    if (response.status === 200) {
+      sessionStorage.setItem('user', JSON.stringify(user));
+    }
+
     // Trigger redirect
     setRedirect(true);
   };
