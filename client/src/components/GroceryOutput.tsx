@@ -46,7 +46,7 @@ const GroceryOutput: React.FC<Props> = ({
           </Button>
           {groceryOutput.map((group) => (
             <div className="grocery-section-output" key={group.section}>
-              <h3>{group.section}</h3>
+              <h3 className="grocery-item-section">{group.section}</h3>
               <ul>
                 {group.contents.map((item) => (
                   <li
