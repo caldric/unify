@@ -33,7 +33,7 @@ const App: React.FC = () => {
   const [groceryOutput, setGroceryOutput] = useState<IGroceryOutput[]>([]);
 
   const getShoppingList = async () => {
-    if (user) {
+    if (loggedIn) {
       // Request shopping list from API
       const response = await axios({
         method: 'get',
@@ -44,6 +44,8 @@ const App: React.FC = () => {
       const { shoppingList } = response.data;
       const items = Object.keys(shoppingList).length ? shoppingList.items : [];
       setGroceryOutput(items);
+    } else {
+      setGroceryOutput([]);
     }
   };
 
@@ -60,7 +62,8 @@ const App: React.FC = () => {
       url: `/api/login/status/${user}`,
     });
     const { data } = response;
-    setLoggedIn(data.loggedIn);
+    const { loggedIn }: { loggedIn: boolean } = data;
+    setLoggedIn(loggedIn);
   };
 
   useEffect(() => {
@@ -69,7 +72,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getShoppingList();
-  }, [user]);
+  }, [loggedIn]);
 
   return (
     <div>
