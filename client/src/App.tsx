@@ -46,6 +46,17 @@ const App: React.FC = () => {
     }
   };
 
+  const getUser = async () => {
+    const userString = sessionStorage.getItem('user');
+    console.log('User string: ', userString);
+    const user = userString ? userString : '';
+    setUser(user);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   useEffect(() => {
     getShoppingList();
   }, [user]);
