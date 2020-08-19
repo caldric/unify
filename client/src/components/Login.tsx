@@ -16,7 +16,7 @@ const Login: React.FC<Props> = ({ setUser }) => {
     // Prevent page refresh
     event.preventDefault();
 
-    // Make post request to API
+    // Make login request to API
     const response = await axios({
       method: 'put',
       url: '/api/login',
