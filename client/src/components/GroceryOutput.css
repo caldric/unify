@@ -5,3 +5,7 @@
 .grocery-item-section {
   text-transform: capitalize;
 }
+
+.grocery-section-output {
+  margin-bottom: 2.5rem;
+}
