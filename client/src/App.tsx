@@ -64,6 +64,12 @@ const App: React.FC = () => {
     const { data } = response;
     const { loggedIn }: { loggedIn: boolean } = data;
     setLoggedIn(loggedIn);
+
+    // Remove user from sessionStorage and state
+    if (!loggedIn) {
+      sessionStorage.setItem('user', '');
+      setUser('');
+    }
   };
 
   useEffect(() => {
