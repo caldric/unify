@@ -1,6 +1,7 @@
-// React
+// React & Axios
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 
 // CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -29,6 +30,25 @@ const App: React.FC = () => {
   // State Hook
   const [user, setUser] = useState('');
   const [groceryOutput, setGroceryOutput] = useState<IGroceryOutput[]>([]);
+
+  const getShoppingList = async () => {
+    console.log('Triggered');
+
+    if (user) {
+      // Request shopping list from API
+      const response = await axios({
+        method: 'get',
+        url: `/api/${user}`,
+      });
+
+      // Set state
+      setGroceryOutput(response.data.shoppingList.items);
+    }
+  };
+
+  useEffect(() => {
+    getShoppingList();
+  }, [user]);
 
   return (
     <div>

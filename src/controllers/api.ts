@@ -41,10 +41,10 @@ apiRouter.post('/', async (req: Request, res: Response) => {
   }
 });
 
-apiRouter.get('/', async (req: Request, res: Response) => {
+apiRouter.get('/:email', async (req: Request, res: Response) => {
   try {
     // Obtain user ID
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.params.email });
 
     if (user) {
       // Send back shopping list as the response
