@@ -1,15 +1,24 @@
 # Unify
 
-## Links
+[Unify](https://protected-castle-69616.herokuapp.com/) is a full-stack web application that can transform a string list of food recipe ingredients into a unified shopping list where similar ingredients are combined and categorized. It is built primarily with the MERN (MongoDB, Express.js, React.js, Node.js) stack.
 
-- [Live site deployed in Heroku](https://protected-castle-69616.herokuapp.com/)
+## Technologies
 
-## New Technology/Methodology
+- MERN stack
+- TypeScript\*
+- Yarn\*
+- Axios\*
+- Postman\*
+- Lodash\*
+- Bootstrap
 
-- TypeScript
-- Axios
-- Single deployment
-- Postman
-- Component-specific styling using JS object
-- Lodash
-- Yarn
+## Features
+
+- Model-view-controller (MVC) software design pattern
+- User sign up and log in functionality
+- Password encryption using Bcrypt
+- React functional components
+- React Hooks
+- Regular expressions
+- String parsing
+- Changing pages with routing using `react-router-dom`
