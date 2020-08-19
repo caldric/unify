@@ -1,13 +1,13 @@
 import bcrypt from 'bcrypt';
 import express, { Request, Response } from 'express';
-import User, { IUser } from '../models/user';
+import User from '../models/user';
 
 const loginRouter = express.Router();
 
 loginRouter.post('/', async (req: Request, res: Response) => {
   try {
     // Find user
-    const user: IUser | null = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email });
 
     // If user is found, look for a password and match it
     const passwordMatches = user

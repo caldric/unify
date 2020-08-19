@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-const Login: React.FC = () => {
+interface Props {
+  setUser: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Login: React.FC<Props> = ({ setUser }) => {
   // State Hook
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,6 +31,7 @@ const Login: React.FC = () => {
     const { user }: { user: string } = response.data;
     if (response.status === 200) {
       sessionStorage.setItem('user', user);
+      setUser(user);
     }
 
     // Trigger redirect

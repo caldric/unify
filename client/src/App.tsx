@@ -41,10 +41,10 @@ const App: React.FC = () => {
       <NavComponent getUser={getUser} />
       <Switch>
         <Route exact path="/">
-          <GroceryInput setGroceryOutput={setGroceryOutput} />
+          <GroceryInput setGroceryOutput={setGroceryOutput} user={user} />
         </Route>
         <Route exact path="/login">
-          <Login />
+          <Login setUser={setUser} />
         </Route>
         <Route exact path="/signup">
           <Signup />

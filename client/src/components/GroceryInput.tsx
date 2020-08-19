@@ -10,6 +10,7 @@ import { IGroceryOutput } from '../App';
 
 interface Props {
   setGroceryOutput: React.Dispatch<React.SetStateAction<IGroceryOutput[]>>;
+  user: string;
 }
 
 interface ResponseData {
@@ -18,7 +19,7 @@ interface ResponseData {
   output: IGroceryOutput[];
 }
 
-const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
+const GroceryInput: React.FC<Props> = ({ setGroceryOutput, user }) => {
   // const [groceryInput, setGroceryInput] = useState('');
   const testInput = [
     '2 lbs beef shank',
@@ -73,7 +74,7 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
       method: 'post',
       url: '/api',
       headers: { 'Content-Type': 'application/json' },
-      data: JSON.stringify({ input: groceryInput }),
+      data: JSON.stringify({ input: groceryInput, user }),
     });
     const { data }: { data: ResponseData } = response;
     console.log(data);
