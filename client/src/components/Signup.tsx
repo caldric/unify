@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Signup = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  // State Hook
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // Prevent page refresh
     event.preventDefault();
 
-    // Make post request to API
+    // // Make post request to API
+    // const response = await axios({
+    //   method: 'POST',
+    //   url: '/api/signup',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   data: JSON.stringify({}),
+    // });
   };
 
   return (
@@ -22,6 +35,8 @@ const Signup = () => {
             className="form-control"
             placeholder="Email address"
             required
+            value={email}
+            onChange={(event) => setEmail(event.currentTarget.value)}
           />
           <label htmlFor="email">Email</label>
         </div>
@@ -32,6 +47,8 @@ const Signup = () => {
             className="form-control"
             placeholder="First name"
             required
+            value={firstName}
+            onChange={(event) => setFirstName(event.currentTarget.value)}
           />
           <label htmlFor="firstName">First name</label>
         </div>
@@ -42,6 +59,8 @@ const Signup = () => {
             className="form-control"
             placeholder="Last name"
             required
+            value={lastName}
+            onChange={(event) => setLastName(event.currentTarget.value)}
           />
           <label htmlFor="lastName">Last name</label>
         </div>
@@ -52,6 +71,8 @@ const Signup = () => {
             className="form-control"
             placeholder="Password"
             required
+            value={password}
+            onChange={(event) => setPassword(event.currentTarget.value)}
           />
           <label htmlFor="password">Password</label>
         </div>
