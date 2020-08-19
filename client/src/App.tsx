@@ -73,7 +73,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <NavComponent />
+      <NavComponent loggedIn={loggedIn} />
       <Switch>
         <Route exact path="/">
           <GroceryInput setGroceryOutput={setGroceryOutput} user={user} />

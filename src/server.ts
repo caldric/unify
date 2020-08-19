@@ -6,6 +6,7 @@ import apiRouter from './controllers/api';
 
 import signupRouter from './controllers/signup';
 import loginRouter from './controllers/login';
+import logoutRouter from './controllers/logout';
 
 // Config
 const local = {
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 app.use('/api', apiRouter);
 app.use('/api/signup', signupRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/logout', logoutRouter);
 app.get('/*', (_, res) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
 });
