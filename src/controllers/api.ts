@@ -22,18 +22,19 @@ apiRouter.post('/', async (req: Request, res: Response) => {
       // Create shopping list
       const shoppingList = new ShoppingList({
         userID: userDocument._id,
-        // section: combinedGroceries.section,
-        // contents: combinedGroceries.,
+        items: combinedGroceries,
       });
       await shoppingList.save();
-    }
 
-    // Send response
-    res.status(200).json({
-      message: 'Post request successful',
-      output: combinedGroceries,
-      input,
-    });
+      // Send response
+      res.status(200).json({
+        message: 'Post request successful',
+        output: combinedGroceries,
+        input,
+      });
+    } else {
+      throw new Error('User not found');
+    }
   } catch (error) {
     console.log(`Error: ${error.message}`);
     res.status(400).json({ message: error.message });
