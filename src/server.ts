@@ -12,7 +12,6 @@ import logoutRouter from './controllers/logout';
 const local = {
   port: 8080,
   mongoURI: 'mongodb://localhost:27017/unify',
-  clientURL: 'http://localhost:3000',
 };
 const deployment = {
   port: process.env.PORT,
