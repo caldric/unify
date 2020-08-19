@@ -1,6 +1,6 @@
 // React & Axios
 import React, { useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 // CSS
@@ -93,11 +93,15 @@ const App: React.FC = () => {
           <Signup />
         </Route>
         <Route exact path="/shopping-list">
-          <GroceryOutput
-            groceryOutput={groceryOutput}
-            user={user}
-            setGroceryOutput={setGroceryOutput}
-          />
+          {!loggedIn ? (
+            <Redirect to="/login" />
+          ) : (
+            <GroceryOutput
+              groceryOutput={groceryOutput}
+              user={user}
+              setGroceryOutput={setGroceryOutput}
+            />
+          )}
         </Route>
       </Switch>
     </div>
