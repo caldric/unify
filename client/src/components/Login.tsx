@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Login = () => {
   // State Hook
@@ -9,7 +10,15 @@ const Login = () => {
     // Prevent page refresh
     event.preventDefault();
 
-    console.log('Login request received');
+    // Make post request to API
+    const response = await axios({
+      method: 'POST',
+      url: '/api/login',
+      headers: { 'Content-Type': 'application/json' },
+      data: JSON.stringify({ email, password }),
+    });
+
+    console.log(response.data);
   };
 
   return (
