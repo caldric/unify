@@ -15,7 +15,7 @@ const Signup: React.FC = () => {
     event.preventDefault();
 
     // Make post request to API
-    const response = await axios({
+    await axios({
       method: 'POST',
       url: '/api/signup',
       headers: { 'Content-Type': 'application/json' },

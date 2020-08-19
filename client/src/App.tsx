@@ -27,6 +27,7 @@ export interface IGroceryOutput {
 
 const App: React.FC = () => {
   // State Hook
+  const [user, setUser] = useState('');
   const [groceryOutput, setGroceryOutput] = useState<IGroceryOutput[]>([]);
 
   const getUser = (): string => {
