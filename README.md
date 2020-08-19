@@ -6,6 +6,7 @@
 
 - MERN stack
 - TypeScript\*
+- MongoDB Atlas\*
 - Yarn\*
 - Axios\*
 - Postman\*
