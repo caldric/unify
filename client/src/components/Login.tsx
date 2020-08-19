@@ -18,7 +18,7 @@ const Login: React.FC<Props> = ({ setUser }) => {
 
     // Make post request to API
     const response = await axios({
-      method: 'POST',
+      method: 'put',
       url: '/api/login',
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify({ email, password }),
