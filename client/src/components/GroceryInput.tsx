@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 
-import { IGroceryOutput } from './Home';
+import { IGroceryOutput } from '../App';
 
 interface Props {
   setGroceryOutput: React.Dispatch<React.SetStateAction<IGroceryOutput[]>>;

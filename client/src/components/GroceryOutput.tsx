@@ -2,7 +2,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 // import ListGroup from 'react-bootstrap/ListGroup';
 
-import { IGroceryOutput } from './Home';
+import { IGroceryOutput } from '../App';
 
 interface Props {
   groceryOutput: IGroceryOutput[];

@@ -8,7 +8,6 @@ import './App.css';
 
 // Components
 import GroceryOutput from './components/GroceryOutput';
-import Home from './components/Home';
 import Login from './components/Login';
 import NavComponent from './components/NavComponent';
 import Signup from './components/Signup';
