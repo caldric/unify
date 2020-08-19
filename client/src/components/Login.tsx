@@ -25,9 +25,6 @@ const Login: React.FC<Props> = ({ setUser, setLoggedIn }) => {
       data: JSON.stringify({ email, password }),
     });
 
-    // Check for response
-    console.log(response.data);
-
     // Store user in session storage and update states
     const {
       user,

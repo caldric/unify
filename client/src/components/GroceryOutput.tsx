@@ -22,7 +22,7 @@ const GroceryOutput: React.FC<Props> = ({
     // do something
     if (user) {
       // Request shopping list from API
-      const response = await axios({
+      await axios({
         method: 'delete',
         url: `/api/${user}`,
       });
