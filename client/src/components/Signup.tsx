@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-const Signup = () => {
+const Signup: React.FC = () => {
   // State Hook
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // Prevent page refresh
@@ -19,8 +21,12 @@ const Signup = () => {
       headers: { 'Content-Type': 'application/json' },
       data: JSON.stringify({ email, firstName, lastName, password }),
     });
+
+    // Trigger redirect
+    setRedirect(true);
   };
 
+  if (redirect) return <Redirect to="/" />;
   return (
     // Source: https://getbootstrap.com/docs/4.5/examples/floating-labels/
     <div className="container" id="login-page">

@@ -1,10 +1,17 @@
 import React from 'react';
 
 const Login = () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // Prevent page refresh
+    event.preventDefault();
+
+    console.log('Login request received');
+  };
+
   return (
     // Source: https://getbootstrap.com/docs/4.5/examples/floating-labels/
     <div className="container" id="login-page">
-      <form className="form-signin">
+      <form className="form-signin" onSubmit={handleSubmit}>
         <div className="text-center mb-4">
           <h2>Sign In</h2>
         </div>
