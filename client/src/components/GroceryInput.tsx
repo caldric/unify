@@ -84,19 +84,19 @@ const GroceryInput: React.FC<Props> = ({ setGroceryOutput }) => {
   return (
     <Row className="grocery-input">
       <Col>
-        <h2>Input</h2>
+        <h2>Ingredients</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="grocery-list">
             <Form.Control
               as="textarea"
-              rows={10}
+              rows={25}
               placeholder="Enter or paste your grocery list items here"
               value={groceryInput}
               onChange={(event) => setGroceryInput(event.currentTarget.value)}
             />
           </Form.Group>
           <Button variant="primary" type="submit">
-            Submit
+            Add All Ingredients to Shopping List
           </Button>
         </Form>
       </Col>

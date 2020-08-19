@@ -17,6 +17,9 @@ const NavComponent: React.FC = () => {
           <Nav.Link as={Link} to="/login">
             Log In
           </Nav.Link>
+          <Nav.Link as={Link} to="/">
+            Shopping List
+          </Nav.Link>
         </Nav>
       </Nav>
     </Navbar>
