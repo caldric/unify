@@ -39,8 +39,8 @@ const Login: React.FC<Props> = ({ setUser }) => {
   };
 
   if (redirect) return <Redirect to="/" />;
+  // Source: https://getbootstrap.com/docs/4.5/examples/floating-labels/
   return (
-    // Source: https://getbootstrap.com/docs/4.5/examples/floating-labels/
     <div className="container" id="login-page">
       <form className="form-signin" onSubmit={handleSubmit}>
         <div className="text-center mb-4">
