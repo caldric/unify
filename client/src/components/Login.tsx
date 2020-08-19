@@ -4,9 +4,10 @@ import axios from 'axios';
 
 interface Props {
   setUser: React.Dispatch<React.SetStateAction<string>>;
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Login: React.FC<Props> = ({ setUser }) => {
+const Login: React.FC<Props> = ({ setUser, setLoggedIn }) => {
   // State Hook
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,11 +28,17 @@ const Login: React.FC<Props> = ({ setUser }) => {
     // Check for response
     console.log(response.data);
 
-    // Store user in session storage and state
-    const { user }: { user: string } = response.data;
+    // Store user in session storage and update states
+    const {
+      user,
+      loggedIn,
+    }: { user: string; loggedIn: boolean } = response.data;
+    console.log('Logged in: ', loggedIn);
+
     if (response.status === 200) {
       sessionStorage.setItem('user', user);
       setUser(user);
+      setLoggedIn(loggedIn);
     }
 
     // Trigger redirect

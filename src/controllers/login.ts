@@ -24,7 +24,7 @@ loginRouter.put('/', async (req: Request, res: Response) => {
         .status(200)
         .json({
           user: user.email,
-          loggedIn: user.loggedIn,
+          loggedIn: true,
           message: 'Login successful',
         });
     } else {

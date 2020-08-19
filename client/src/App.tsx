@@ -84,7 +84,7 @@ const App: React.FC = () => {
           <GroceryInput setGroceryOutput={setGroceryOutput} user={user} />
         </Route>
         <Route exact path="/login">
-          <Login setUser={setUser} />
+          <Login setUser={setUser} setLoggedIn={setLoggedIn} />
         </Route>
         <Route exact path="/signup">
           <Signup />
