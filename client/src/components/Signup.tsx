@@ -1,10 +1,17 @@
 import React from 'react';
 
 const Signup = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    // Prevent page refresh
+    event.preventDefault();
+
+    // Make post request to API
+  };
+
   return (
     // Source: https://getbootstrap.com/docs/4.5/examples/floating-labels/
     <div className="container" id="login-page">
-      <form className="form-signin">
+      <form className="form-signin" onSubmit={handleSubmit}>
         <div className="text-center mb-4">
           <h2>Sign Up</h2>
         </div>

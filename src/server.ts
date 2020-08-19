@@ -41,8 +41,8 @@ if (process.env.NODE_ENV === 'production') {
 
 // Routes
 app.use('/api', apiRouter);
-app.use('/signup', signupRouter);
-app.use('/login', loginRouter);
+app.use('/api/signup', signupRouter);
+app.use('/api/login', loginRouter);
 app.get('/*', (_, res) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
 });
