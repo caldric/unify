@@ -12,13 +12,13 @@ const Signup = () => {
     // Prevent page refresh
     event.preventDefault();
 
-    // // Make post request to API
-    // const response = await axios({
-    //   method: 'POST',
-    //   url: '/api/signup',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   data: JSON.stringify({}),
-    // });
+    // Make post request to API
+    const response = await axios({
+      method: 'POST',
+      url: '/api/signup',
+      headers: { 'Content-Type': 'application/json' },
+      data: JSON.stringify({ email, firstName, lastName, password }),
+    });
   };
 
   return (
