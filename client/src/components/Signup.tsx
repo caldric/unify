@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 const Signup: React.FC = () => {
@@ -85,6 +85,7 @@ const Signup: React.FC = () => {
         <button type="submit" className="btn btn-lg btn-primary btn-block">
           Sign Up
         </button>
+        <Link to="/login">Already have an account? Sign in here.</Link>
       </form>
     </div>
   );

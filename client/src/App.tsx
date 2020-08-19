@@ -26,11 +26,18 @@ export interface IGroceryOutput {
 }
 
 const App: React.FC = () => {
+  // State Hook
   const [groceryOutput, setGroceryOutput] = useState<IGroceryOutput[]>([]);
+
+  const getUser = (): string => {
+    const userString: string | null = sessionStorage.getItem('user');
+    const user: string = userString ? JSON.parse(userString) : '';
+    return user;
+  };
 
   return (
     <div>
-      <NavComponent />
+      <NavComponent getUser={getUser} />
       <Switch>
         <Route exact path="/">
           <GroceryInput setGroceryOutput={setGroceryOutput} />

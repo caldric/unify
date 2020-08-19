@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-const NavComponent: React.FC = () => {
+interface Props {
+  getUser: () => string;
+}
+
+const NavComponent: React.FC<Props> = ({ getUser }) => {
   return (
     <Navbar bg="dark" variant="dark" className="fixed-top" id="navbar">
       <Nav className="container-fluid">
@@ -11,9 +15,6 @@ const NavComponent: React.FC = () => {
           Unify
         </Navbar.Brand>
         <Nav className="ml-auto">
-          <Nav.Link as={Link} to="/signup">
-            Sign Up
-          </Nav.Link>
           <Nav.Link as={Link} to="/login">
             Log In
           </Nav.Link>

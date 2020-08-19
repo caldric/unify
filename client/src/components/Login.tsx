@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-const Login = () => {
+const Login: React.FC = () => {
   // State Hook
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,10 +23,10 @@ const Login = () => {
     // Check for response
     console.log(response.data);
 
-    // Store user in session storage
+    // Store user in session storage and state
     const { user }: { user: string } = response.data;
     if (response.status === 200) {
-      sessionStorage.setItem('user', JSON.stringify(user));
+      sessionStorage.setItem('user', user);
     }
 
     // Trigger redirect
@@ -68,6 +68,7 @@ const Login = () => {
         <button type="submit" className="btn btn-lg btn-primary btn-block">
           Sign In
         </button>
+        <Link to="/signup">Don't have an account yet? Sign up here.</Link>
       </form>
     </div>
   );
