@@ -1,4 +1,5 @@
 // Imports
+import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import path from 'path';
@@ -9,6 +10,7 @@ import loginRouter from './controllers/login';
 import logoutRouter from './controllers/logout';
 
 // Config
+dotenv.config();
 const local = {
   port: 8080,
   mongoURI: 'mongodb://localhost:27017/unify',
@@ -31,6 +33,7 @@ mongoose.connect(MONGODB_URI, {
 });
 mongoose.connection.once('open', () => {
   console.log('Connected to Mongoose');
+  console.log(MONGODB_URI);
 });
 
 // Middleware

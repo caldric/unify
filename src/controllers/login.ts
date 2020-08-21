@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import express, { Request, Response } from 'express';
 import User from '../models/user';
 
@@ -20,13 +20,11 @@ loginRouter.put('/', async (req: Request, res: Response) => {
     // Send back user email as a response
     if (user && passwordMatches) {
       // req.session.user = user;
-      res
-        .status(200)
-        .json({
-          user: user.email,
-          loggedIn: true,
-          message: 'Login successful',
-        });
+      res.status(200).json({
+        user: user.email,
+        loggedIn: true,
+        message: 'Login successful',
+      });
     } else {
       res.status(400).json({ user: '', message: 'Invalid email or password' });
     }

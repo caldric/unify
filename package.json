@@ -10,23 +10,27 @@
   "author": "caldric <cvaldric@gmail.com>",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "tsc && cd client && yarn build",
-    "install-client": "cd client && yarn install",
-    "heroku-postbuild": "yarn install-client && yarn build",
+    "build": "tsc && cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node build/server.js",
-    "client": "cd client && yarn start",
-    "dev": "concurrently -n 'server,client,build' -c 'red,green,blue' 'nodemon build/server.js' 'yarn client' 'tsc -w'"
+    "client": "cd client && npm start",
+    "dev": "concurrently -n 'server,client,build' -c 'red,green,blue' 'nodemon build/server.js' 'npm run client' 'tsc -w'"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.7",
     "@types/lodash": "^4.14.159",
     "@types/mongoose": "^5.7.36",
     "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "lodash": "^4.17.20",
     "mongoose": "^5.10.0",
+    "node": "^12.18.3",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
