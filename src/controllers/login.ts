@@ -20,18 +20,15 @@ loginRouter.put('/', async (req: Request, res: Response) => {
     // Send back user email as a response
     if (user && passwordMatches) {
       // req.session.user = user;
-      res
-        .status(200)
-        .json({
-          user: user.email,
-          loggedIn: true,
-          message: 'Login successful',
-        });
+      res.status(200).json({
+        user: user.email,
+        loggedIn: true,
+        message: 'Login successful',
+      });
     } else {
-      res.status(400).json({ user: '', message: 'Invalid email or password' });
+      throw new Error('Invalid email or password');
     }
   } catch (err) {
-    console.log(`Error: ${err.message}`);
     res.status(400).json({ user: '', message: err.message });
   }
 });
@@ -42,12 +39,12 @@ loginRouter.get('/status/:email', async (req: Request, res: Response) => {
 
   try {
     const user = await User.findOne({ email });
-    if (user) {
-      res.status(200).json({
-        message: 'Login status successfully obtained',
-        loggedIn: user.loggedIn,
-      });
-    }
+    if (!user) throw new Error('User not found');
+
+    res.status(200).json({
+      message: 'Login status successfully obtained',
+      loggedIn: user.loggedIn,
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

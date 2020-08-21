@@ -17,29 +17,25 @@ apiRouter.post('/', async (req: Request, res: Response) => {
   try {
     // Obtain user document
     const userDocument = await User.findOne({ email: user });
+    if (!userDocument) throw new Error('User not found');
 
-    if (userDocument) {
-      // Delete pre-existing shopping list
-      await ShoppingList.deleteMany({ userID: userDocument._id });
+    // Delete pre-existing shopping list
+    await ShoppingList.deleteMany({ userID: userDocument._id });
 
-      // Create shopping list
-      const shoppingList = new ShoppingList({
-        userID: userDocument._id,
-        items: combinedGroceries,
-      });
-      await shoppingList.save();
+    // Create shopping list
+    const shoppingList = new ShoppingList({
+      userID: userDocument._id,
+      items: combinedGroceries,
+    });
+    await shoppingList.save();
 
-      // Send response
-      res.status(200).json({
-        message: 'Post request successful',
-        output: combinedGroceries,
-        input,
-      });
-    } else {
-      throw new Error('User not found');
-    }
+    // Send response
+    res.status(200).json({
+      message: 'Post request successful',
+      output: combinedGroceries,
+      input,
+    });
   } catch (err) {
-    console.log(`Error: ${err.message}`);
     res.status(400).json({ message: err.message });
   }
 });
@@ -48,17 +44,14 @@ apiRouter.get('/:email', async (req: Request, res: Response) => {
   try {
     // Obtain user ID
     const user = await User.findOne({ email: req.params.email });
+    if (!user) throw new Error('User not found');
 
-    if (user) {
-      // Send back shopping list as the response
-      const shoppingList = await ShoppingList.findOne({ userID: user._id });
-      res.status(200).json({
-        message: 'Successfully retrieved shopping list',
-        shoppingList: shoppingList ? shoppingList : {},
-      });
-    } else {
-      throw new Error('User not found');
-    }
+    // Send back shopping list as the response
+    const shoppingList = await ShoppingList.findOne({ userID: user._id });
+    res.status(200).json({
+      message: 'Successfully retrieved shopping list',
+      shoppingList: shoppingList ? shoppingList : {},
+    });
   } catch (err) {
     res.status(400).json({ message: err.message, shoppingList: {} });
   }
@@ -68,14 +61,11 @@ apiRouter.delete('/:email', async (req: Request, res: Response) => {
   try {
     // Obtain user ID
     const user = await User.findOne({ email: req.params.email });
+    if (!user) throw new Error('User not found');
 
-    if (user) {
-      // Send back shopping list as the response
-      const shoppingList = await ShoppingList.deleteMany({ userID: user._id });
-      res.status(200).json({ message: 'Successfully deleted shopping list' });
-    } else {
-      throw new Error('User not found');
-    }
+    // Send back shopping list as the response
+    const shoppingList = await ShoppingList.deleteMany({ userID: user._id });
+    res.status(200).json({ message: 'Successfully deleted shopping list' });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

@@ -10,6 +10,9 @@ logoutRouter.put('/', async (req: Request, res: Response) => {
       { email: req.body.email },
       { loggedIn: false }
     );
+    if (!user) throw new Error('User not found');
+
+    // Send back response
     res
       .status(200)
       .json({ message: 'Logout successful', loggedIn: false, user: '' });
